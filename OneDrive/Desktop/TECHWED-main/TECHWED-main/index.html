@@ -2030,5 +2030,17 @@ spawnConfetti('confettiHero', 25);
 spawnConfetti('confettiCTA', 20);
 showPage('home');
 </script>
+  <!-- Supabase Setup -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL = 'https://suyznuxcnadfdpchueyt.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_70RK3G-AXCZxmIK_OpSnng_wH4Nwdeb';  // ← Paste your actual anon key here
+  
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  console.log('Supabase connected!');
+</script>
+
+</body>
+</html>
 </body>
 </html> 
