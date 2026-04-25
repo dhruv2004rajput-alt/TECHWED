@@ -1,28 +1,2033 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TECH UR WED – Animated Wedding Invitation Websites</title>
-    <meta name="description" content="Stunning animated wedding invitation websites crafted with love. TECH UR WED designs unique digital invites for your special day." />
-    <meta name="author" content="TECH UR WED" />
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TECH UR WED — Animated Wedding Invitation Websites</title>
+<meta name="description" content="Stunning animated wedding invitation websites crafted with love. TECH UR WED designs unique digital invites for your special day." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,500&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    container: { center: true, padding: '1.25rem', screens: { '2xl': '1280px' } },
+    extend: {
+      fontFamily: {
+        display: ['"Playfair Display"', 'serif'],
+        script: ['"Great Vibes"', 'cursive'],
+        cormorant: ['"Cormorant Garamond"', 'serif'],
+        body: ['Poppins', 'sans-serif'],
+      },
+    },
+  },
+};
+</script>
+<style>
+:root {
+  --primary: 348 75% 32%;
+  --gold: 42 88% 52%;
+  --pink: 335 80% 62%;
+  --teal: 178 60% 38%;
+  --plum: 290 50% 35%;
+  --cream: 38 60% 94%;
+}
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Poppins',sans-serif;
+  background:hsl(35 50% 97%);
+  color:hsl(340 40% 15%);
+  overflow-x:hidden;
+  line-height:1.7;
+  cursor: none;
+}
 
-    <meta property="og:title" content="TECH UR WED – Animated Wedding Invitation Websites" />
-    <meta property="og:description" content="Beautiful, animated digital wedding invitations crafted just for you." />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+/* ===== CUSTOM CURSOR ===== */
+#cursorDot {
+  width:8px;height:8px;
+  background:hsl(var(--gold));
+  border-radius:50%;
+  position:fixed;
+  pointer-events:none;
+  z-index:999999;
+  top:0;left:0;
+  transform:translate(-50%,-50%);
+  transition:width .2s,height .2s,background .2s;
+}
+#cursorRing {
+  width:36px;height:36px;
+  border:2px solid hsl(var(--gold)/.6);
+  border-radius:50%;
+  position:fixed;
+  pointer-events:none;
+  z-index:999998;
+  top:0;left:0;
+  transform:translate(-50%,-50%);
+  transition:width .35s cubic-bezier(.34,1.56,.64,1),height .35s cubic-bezier(.34,1.56,.64,1),border-color .3s,background .3s;
+}
+body.cursor-hover #cursorDot { width:12px;height:12px;background:hsl(var(--pink)); }
+body.cursor-hover #cursorRing { width:56px;height:56px;border-color:hsl(var(--pink)/.5);background:hsl(var(--pink)/.08); }
+body.cursor-click #cursorDot { width:6px;height:6px; }
+body.cursor-click #cursorRing { width:28px;height:28px; }
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@Lovable" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
+/* ===== SMOOTH LOADER ===== */
+#pageLoader {
+  position:fixed;inset:0;z-index:100000;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:hsl(348 75% 12%);
+  transition:opacity .7s ease,visibility .7s;
+}
+#pageLoader.hidden { opacity:0;visibility:hidden; }
+.loader-mandala {
+  width:120px;height:120px;
+  border:2px solid hsl(var(--gold)/.3);
+  border-radius:50%;
+  position:relative;
+  animation:mandala-spin 3s linear infinite;
+}
+.loader-mandala::before {
+  content:'';
+  position:absolute;inset:6px;
+  border:2px solid hsl(var(--pink)/.4);
+  border-radius:50%;
+  animation:mandala-spin 2s linear infinite reverse;
+}
+.loader-mandala::after {
+  content:'';
+  position:absolute;inset:14px;
+  border:2px solid hsl(var(--gold)/.6);
+  border-radius:50%;
+  animation:mandala-spin 1.5s linear infinite;
+}
+.loader-heart {
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  font-size:28px;
+  animation:heart-beat 1.2s ease-in-out infinite;
+}
+.loader-bar {
+  width:200px;height:3px;
+  background:hsl(var(--cream)/.1);
+  border-radius:99px;
+  overflow:hidden;
+  margin-top:2.5rem;
+}
+.loader-bar-fill {
+  height:100%;
+  background:linear-gradient(90deg,hsl(var(--gold)),hsl(var(--pink)));
+  border-radius:99px;
+  width:0%;
+  animation:load-fill 2.2s cubic-bezier(.4,0,.2,1) forwards;
+}
+.loader-text {
+  font-family:'Great Vibes',cursive;
+  color:hsl(var(--cream));
+  font-size:1.6rem;
+  margin-top:1rem;
+  opacity:0;
+  animation:fade-in-up .8s .3s forwards;
+}
+@keyframes mandala-spin { to{transform:rotate(360deg)} }
+@keyframes load-fill { 0%{width:0}60%{width:75%}80%{width:90%}100%{width:100%} }
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+/* ===== CURTAIN INTRO ===== */
+#curtainIntro {
+  position:fixed;inset:0;z-index:9999;
+  pointer-events:none;
+}
+.curtain-panel {
+  position:absolute;top:0;bottom:0;width:50%;
+  background:linear-gradient(180deg,hsl(348 80% 22%) 0%,hsl(348 75% 32%) 50%,hsl(348 80% 18%) 100%);
+  overflow:hidden;
+}
+.curtain-panel.left { left:0; transform-origin:left; }
+.curtain-panel.right { right:0; transform-origin:right; }
+.curtain-panel .gold-edge {
+  position:absolute;top:0;bottom:0;width:4px;
+  background:linear-gradient(180deg,hsl(var(--gold)),hsl(36 80% 45%),hsl(var(--gold)));
+}
+.curtain-panel.left .gold-edge { right:0; }
+.curtain-panel.right .gold-edge { left:0; }
+.curtain-panel.open-left { animation:curtain-open-left 1.8s cubic-bezier(.77,0,.18,1) forwards; animation-delay:2.6s; }
+.curtain-panel.open-right { animation:curtain-open-right 1.8s cubic-bezier(.77,0,.18,1) forwards; animation-delay:2.6s; }
+@keyframes curtain-open-left { to{transform:translateX(-100%)} }
+@keyframes curtain-open-right { to{transform:translateX(100%)} }
+
+.curtain-center {
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:hsl(38 60% 95%);
+}
+.curtain-logo { text-align:center; animation:curtain-logo-in 1s cubic-bezier(.34,1.56,.64,1) forwards; opacity:0; }
+@keyframes curtain-logo-in { to{opacity:1;transform:none} }
+.curtain-logo { transform:scale(.7); }
+
+/* ===== SCROLL PROGRESS ===== */
+#scrollProgress {
+  position:fixed;top:0;left:0;height:3px;
+  background:linear-gradient(90deg,hsl(var(--gold)),hsl(var(--pink)),hsl(var(--plum)));
+  z-index:9999;width:0%;transition:width .05s;
+  box-shadow:0 0 12px hsl(var(--gold)/.6);
+}
+
+/* ===== NAVBAR ===== */
+#navbar {
+  position:fixed;top:0;inset-x:0;z-index:500;
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid hsl(var(--gold)/.2);
+  background:hsl(38 60% 96%/.85);
+  transition:all .4s;
+}
+#navbar.scrolled {
+  background:hsl(38 60% 96%/.96);
+  box-shadow:0 4px 30px hsl(348 50% 20%/.1);
+}
+.nav-link {
+  position:relative;padding:.5rem 1rem;border-radius:99px;
+  font-size:.875rem;font-weight:600;
+  color:hsl(340 40% 15%/.7);
+  transition:all .3s;
+  overflow:hidden;
+}
+.nav-link::before {
+  content:'';
+  position:absolute;inset:0;border-radius:99px;
+  background:hsl(var(--gold)/.15);
+  transform:scaleX(0);transform-origin:right;
+  transition:transform .35s cubic-bezier(.77,0,.18,1);
+}
+.nav-link:hover::before,.nav-link.active::before { transform:scaleX(1);transform-origin:left; }
+.nav-link.active { color:hsl(var(--primary));font-weight:700; }
+
+/* ===== PAGES ===== */
+.page { display:none; }
+.page.active { display:block; animation:page-enter .5s cubic-bezier(.4,0,.2,1); }
+@keyframes page-enter { from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none} }
+
+/* ===== REVEAL ANIMATIONS ===== */
+.reveal {
+  opacity:0;transform:translateY(60px);
+  transition:opacity .9s cubic-bezier(.4,0,.2,1),transform .9s cubic-bezier(.4,0,.2,1);
+}
+.reveal.visible { opacity:1;transform:translateY(0); }
+
+.reveal-left {
+  opacity:0;transform:translateX(-60px);
+  transition:opacity .9s cubic-bezier(.4,0,.2,1),transform .9s cubic-bezier(.4,0,.2,1);
+}
+.reveal-left.visible { opacity:1;transform:translateX(0); }
+
+.reveal-right {
+  opacity:0;transform:translateX(60px);
+  transition:opacity .9s cubic-bezier(.4,0,.2,1),transform .9s cubic-bezier(.4,0,.2,1);
+}
+.reveal-right.visible { opacity:1;transform:translateX(0); }
+
+.reveal-scale {
+  opacity:0;transform:scale(0.75);
+  transition:opacity .8s cubic-bezier(.34,1.56,.64,1),transform .8s cubic-bezier(.34,1.56,.64,1);
+}
+.reveal-scale.visible { opacity:1;transform:scale(1); }
+
+/* Stagger delays */
+[data-delay="1"] { transition-delay:.1s !important; }
+[data-delay="2"] { transition-delay:.2s !important; }
+[data-delay="3"] { transition-delay:.3s !important; }
+[data-delay="4"] { transition-delay:.4s !important; }
+[data-delay="5"] { transition-delay:.5s !important; }
+[data-delay="6"] { transition-delay:.6s !important; }
+
+/* ===== 3D TILT CARDS ===== */
+.tilt-3d {
+  transform-style:preserve-3d;
+  transition:transform .1s ease;
+  will-change:transform;
+}
+.tilt-3d .tilt-inner { transform:translateZ(20px); }
+
+/* ===== PARALLAX LAYERS ===== */
+.parallax-bg { will-change:transform; }
+
+/* ===== HERO ===== */
+.hero-section {
+  min-height:100vh;display:flex;align-items:center;
+  background:linear-gradient(160deg,hsl(38 60% 96%) 0%,hsl(36 50% 92%) 100%);
+  overflow:hidden;position:relative;
+}
+.hero-blob {
+  position:absolute;border-radius:50%;filter:blur(60px);
+  pointer-events:none;
+  animation:blob-float 8s ease-in-out infinite;
+}
+@keyframes blob-float {
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(30px,-20px) scale(1.05)}
+  66%{transform:translate(-20px,15px) scale(.97)}
+}
+
+/* ===== MAGNETIC BUTTON ===== */
+.btn-magnetic {
+  position:relative;overflow:visible;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+.btn-glow {
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:linear-gradient(135deg,hsl(348 75% 32%),hsl(290 50% 35%),hsl(335 80% 50%));
+  color:hsl(38 60% 96%);
+  padding:.875rem 2rem;border-radius:99px;
+  font-weight:600;font-size:.9375rem;
+  box-shadow:0 8px 32px hsl(335 80% 50%/.4);
+  transition:box-shadow .3s,transform .3s;
+  position:relative;overflow:hidden;
+}
+.btn-glow::after {
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,hsl(42 88% 52%/.3),transparent);
+  transform:translateX(-100%);
+  transition:transform .5s cubic-bezier(.77,0,.18,1);
+}
+.btn-glow:hover::after { transform:translateX(0); }
+.btn-glow:hover { box-shadow:0 12px 48px hsl(335 80% 50%/.6);transform:translateY(-3px); }
+
+.btn-outline {
+  display:inline-flex;align-items:center;gap:.5rem;
+  border:2px solid hsl(var(--gold));
+  color:hsl(var(--primary));
+  background:hsl(var(--cream));
+  padding:.875rem 2rem;border-radius:99px;
+  font-weight:600;font-size:.9375rem;
+  transition:all .35s cubic-bezier(.34,1.56,.64,1);
+}
+.btn-outline:hover { background:hsl(var(--gold)/.15);transform:translateY(-3px);box-shadow:0 8px 24px hsl(var(--gold)/.3); }
+
+/* ===== MARQUEE ===== */
+.marquee-outer { overflow:hidden; }
+.marquee-track { display:flex;gap:3rem;white-space:nowrap;animation:marquee 28s linear infinite; }
+.marquee-track:hover { animation-play-state:paused; }
+@keyframes marquee { from{transform:translateX(0)}to{transform:translateX(-50%)} }
+
+/* ===== FEATURE CARDS ===== */
+.feature-card {
+  background:white;
+  border:1.5px solid hsl(35 40% 90%);
+  border-radius:24px;padding:2rem;
+  position:relative;overflow:hidden;
+  transition:all .45s cubic-bezier(.34,1.56,.64,1);
+}
+.feature-card::before {
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,hsl(var(--gold)/.08),hsl(var(--pink)/.05));
+  opacity:0;transition:opacity .35s;
+}
+.feature-card:hover { transform:translateY(-10px) rotate(-.5deg);border-color:hsl(var(--gold)/.5);box-shadow:0 20px 50px hsl(348 60% 22%/.15); }
+.feature-card:hover::before { opacity:1; }
+.feature-card .icon-wrap {
+  width:56px;height:56px;border-radius:16px;
+  display:grid;place-items:center;font-size:1.5rem;
+  margin-bottom:1.25rem;
+  transition:transform .45s cubic-bezier(.34,1.56,.64,1);
+}
+.feature-card:hover .icon-wrap { transform:scale(1.2) rotate(8deg); }
+
+/* ===== TESTIMONIAL CARDS ===== */
+.testimonial-card {
+  background:linear-gradient(160deg,hsl(38 60% 97%),hsl(36 50% 93%));
+  border:1.5px solid hsl(var(--gold)/.25);
+  border-radius:24px;padding:2rem;
+  transition:all .4s cubic-bezier(.34,1.56,.64,1);
+  position:relative;
+}
+.testimonial-card:hover { transform:translateY(-8px);box-shadow:0 16px 48px hsl(348 60% 22%/.12);border-color:hsl(var(--gold)/.5); }
+
+/* ===== PRICING CARDS ===== */
+.pricing-card {
+  background:white;
+  border:2px solid hsl(35 40% 88%);
+  border-radius:28px;padding:2.5rem;
+  position:relative;overflow:hidden;
+  transition:all .4s cubic-bezier(.34,1.56,.64,1);
+}
+.pricing-card::after {
+  content:'';position:absolute;bottom:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,hsl(var(--gold)),hsl(var(--pink)));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .4s cubic-bezier(.77,0,.18,1);
+}
+.pricing-card:hover { transform:translateY(-12px);box-shadow:0 24px 60px hsl(348 60% 22%/.18); }
+.pricing-card:hover::after { transform:scaleX(1); }
+.pricing-card.popular { border-color:hsl(var(--gold));box-shadow:0 12px 40px hsl(var(--gold)/.25); }
+.pricing-card.popular::after { transform:scaleX(1); }
+
+/* ===== HERO CARD 3D ===== */
+.hero-invite-card {
+  border-radius:28px;overflow:hidden;
+  border:4px solid hsl(var(--gold)/.4);
+  box-shadow:0 20px 60px hsl(348 60% 22%/.2);
+  transition:box-shadow .3s;
+}
+.hero-invite-card:hover { box-shadow:0 30px 80px hsl(348 60% 22%/.3); }
+
+/* ===== FLOATING EMOJIS ===== */
+.float-emoji {
+  position:absolute;font-size:1.5rem;
+  animation:emoji-float 6s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes emoji-float {
+  0%,100%{transform:translateY(0) rotate(0deg)}
+  50%{transform:translateY(-20px) rotate(10deg)}
+}
+
+/* ===== PROCESS STEPS ===== */
+.process-step {
+  background:white;
+  border:1.5px solid hsl(35 40% 90%);
+  border-radius:24px;padding:2.5rem 1.5rem 1.5rem;
+  position:relative;text-align:left;
+  transition:all .4s cubic-bezier(.34,1.56,.64,1);
+}
+.process-step:hover { transform:translateY(-10px);box-shadow:0 16px 40px hsl(348 60% 22%/.14);border-color:hsl(var(--gold)/.4); }
+.step-num {
+  position:absolute;top:-1.25rem;left:1.5rem;
+  width:2.75rem;height:2.75rem;border-radius:50%;
+  background:linear-gradient(135deg,hsl(348 75% 32%),hsl(290 50% 35%));
+  color:hsl(38 60% 96%);
+  display:grid;place-items:center;
+  font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;
+  box-shadow:0 6px 20px hsl(335 80% 50%/.4);
+}
+
+/* ===== STATS ===== */
+.stat-item {
+  text-align:center;
+  transition:transform .4s cubic-bezier(.34,1.56,.64,1);
+}
+.stat-item:hover { transform:scale(1.08); }
+
+/* ===== GALLERY ===== */
+.gallery-card {
+  border-radius:20px;overflow:hidden;
+  border:2px solid hsl(var(--gold)/.25);
+  transition:all .45s cubic-bezier(.34,1.56,.64,1);
+  position:relative;
+}
+.gallery-card:hover { transform:translateY(-10px) scale(1.02);box-shadow:0 20px 60px hsl(348 60% 22%/.2);border-color:hsl(var(--gold)/.6); }
+.gallery-card .overlay {
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 35%,hsl(var(--primary)/.92));
+  opacity:0;transition:opacity .35s;
+}
+.gallery-card:hover .overlay { opacity:1; }
+.gallery-card .card-info {
+  position:absolute;bottom:0;left:0;right:0;padding:1.5rem;
+  transform:translateY(16px);opacity:0;transition:all .35s;
+}
+.gallery-card:hover .card-info { transform:translateY(0);opacity:1; }
+
+/* ===== SPARKLE ===== */
+.sparkle { display:inline-block;position:relative; }
+.sparkle::before,.sparkle::after {
+  content:'✦';position:absolute;color:hsl(var(--gold));
+  font-size:.6em;
+  animation:sparkle-anim 2.5s ease-in-out infinite;
+}
+.sparkle::before { top:-6px;left:-10px;animation-delay:.5s; }
+.sparkle::after { bottom:-6px;right:-10px; }
+@keyframes sparkle-anim { 0%,100%{opacity:0;transform:scale(0) rotate(0)}50%{opacity:1;transform:scale(1) rotate(180deg)} }
+
+/* ===== TYPOGRAPHY ===== */
+h1,h2,h3,h4 {
+  font-family:'Playfair Display',serif;
+  color:hsl(var(--primary));
+  line-height:1.1;
+  letter-spacing:-.02em;
+}
+::selection { background:hsl(var(--gold)/.35);color:hsl(var(--primary)); }
+a { color:inherit;text-decoration:none; }
+
+/* ===== GRADIENTS ===== */
+.gradient-text {
+  background:linear-gradient(120deg,hsl(348 75% 42%),hsl(42 88% 52%),hsl(290 50% 50%));
+  background-size:200% auto;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shimmer 5s linear infinite;
+}
+.gradient-text-rose {
+  background:linear-gradient(120deg,hsl(348 75% 42%),hsl(335 80% 62%));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.gradient-text-gold {
+  background:linear-gradient(120deg,hsl(42 88% 52%),hsl(48 95% 65%),hsl(36 80% 45%));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+@keyframes shimmer { 0%{background-position:-200% 0}100%{background-position:200% 0} }
+
+/* ===== MISC ANIMATIONS ===== */
+@keyframes heart-beat { 0%,100%{transform:scale(1)}15%,45%{transform:scale(.88)}30%{transform:scale(1.15)} }
+.heart-beat { animation:heart-beat 1.6s ease-in-out infinite; }
+@keyframes float-slow { 0%,100%{transform:translateY(0)}50%{transform:translateY(-22px)} }
+.float-anim { animation:float-slow 5s ease-in-out infinite; }
+@keyframes glow-pulse { 0%,100%{box-shadow:0 0 20px hsl(var(--gold)/.3),0 8px 32px hsl(335 80% 50%/.4)}50%{box-shadow:0 0 40px hsl(var(--gold)/.6),0 12px 48px hsl(335 80% 50%/.6)} }
+.glow-pulse { animation:glow-pulse 3s ease-in-out infinite; }
+@keyframes fade-in-up { from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none} }
+@keyframes confetti-fall { 0%{transform:translateY(-10vh) rotate(0);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0} }
+.confetti { position:absolute;width:10px;height:14px;animation:confetti-fall 4s linear infinite;border-radius:2px; }
+@keyframes ring-spin { to{transform:rotate(360deg)} }
+@keyframes bounce-in { 0%{transform:scale(0) rotate(-10deg);opacity:0}70%{transform:scale(1.1) rotate(2deg)}100%{transform:scale(1) rotate(0);opacity:1} }
+.bounce-in { animation:bounce-in .7s cubic-bezier(.34,1.56,.64,1) forwards; }
+@keyframes pulse-dot { 0%,100%{box-shadow:0 0 0 0 hsl(var(--teal)/.5)}70%{box-shadow:0 0 0 10px hsl(var(--teal)/0)} }
+.pulse-dot { animation:pulse-dot 2s infinite; }
+
+/* ===== COUNTER ===== */
+.count-up { display:inline-block; }
+
+/* ===== DIVIDER ===== */
+.divider {
+  display:flex;align-items:center;justify-content:center;gap:1rem;
+  color:hsl(var(--gold));margin-bottom:.75rem;
+}
+.divider::before,.divider::after {
+  content:'';flex:1;height:1px;
+  background:linear-gradient(90deg,transparent,hsl(var(--gold)/.5),transparent);
+  max-width:100px;
+}
+
+/* ===== MOBILE MENU ===== */
+#mobileMenu {
+  display:none;
+  position:fixed;top:68px;inset-x:0;bottom:0;
+  background:hsl(38 60% 96%);
+  z-index:499;padding:1.5rem;
+  overflow-y:auto;
+  border-top:1px solid hsl(var(--gold)/.2);
+  animation:slide-down .35s cubic-bezier(.4,0,.2,1);
+}
+#mobileMenu.open { display:block; }
+@keyframes slide-down { from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none} }
+.mob-link {
+  display:block;padding:1rem 1.25rem;
+  border-radius:16px;font-weight:600;font-size:1.1rem;
+  color:hsl(var(--primary));
+  transition:all .3s;
+  border:1.5px solid transparent;
+}
+.mob-link:hover,.mob-link.active { background:hsl(var(--gold)/.12);border-color:hsl(var(--gold)/.3); }
+
+/* ===== TOAST ===== */
+#toast {
+  position:fixed;bottom:2rem;right:2rem;
+  background:hsl(var(--primary));color:white;
+  padding:1rem 1.5rem;border-radius:14px;
+  box-shadow:0 14px 40px hsl(348 60% 22%/.3);
+  z-index:99998;
+  transform:translateY(100px) scale(.9);opacity:0;
+  transition:all .4s cubic-bezier(.34,1.56,.64,1);
+  font-size:.9rem;font-weight:500;
+}
+#toast.show { transform:translateY(0) scale(1);opacity:1; }
+
+/* ===== ADMIN ===== */
+.admin-overlay {
+  position:fixed;inset:0;background:rgba(0,0,0,.65);
+  backdrop-filter:blur(10px);z-index:10000;
+  display:none;align-items:center;justify-content:center;
+}
+.admin-overlay.open { display:flex; }
+.admin-panel {
+  background:hsl(38 60% 97%);border-radius:24px;
+  width:min(96vw,1100px);max-height:90vh;overflow-y:auto;
+  border:2px solid hsl(var(--gold)/.4);
+  box-shadow:0 30px 80px rgba(0,0,0,.4);
+}
+.admin-tab {
+  padding:.5rem 1.25rem;border-radius:99px;cursor:pointer;
+  font-size:.8rem;font-weight:600;transition:all .3s;
+}
+.admin-tab.active {
+  background:linear-gradient(135deg,hsl(348 75% 32%),hsl(290 50% 35%));
+  color:white;
+}
+.admin-tab:not(.active) { color:hsl(var(--primary));background:hsl(var(--gold)/.1); }
+.admin-section { display:none; }
+.admin-section.active { display:block; }
+input:focus,select:focus,textarea:focus {
+  outline:none;
+  border-color:hsl(var(--gold)) !important;
+  box-shadow:0 0 0 3px hsl(var(--gold)/.2);
+}
+
+/* ===== CROP MODAL ===== */
+.crop-overlay { position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);z-index:20000;display:none;align-items:center;justify-content:center; }
+.crop-overlay.open { display:flex; }
+.crop-container { position:relative;overflow:hidden;cursor:crosshair;border:2px solid hsl(var(--gold));border-radius:8px;max-width:100%;max-height:60vh; }
+.crop-selection { position:absolute;border:2px solid hsl(var(--gold));background:rgba(255,255,255,.08);box-shadow:0 0 0 9999px rgba(0,0,0,.55);pointer-events:none; }
+.crop-handle { position:absolute;width:14px;height:14px;background:hsl(var(--gold));border-radius:3px; }
+.crop-handle.tl{top:-7px;left:-7px;cursor:nw-resize}
+.crop-handle.tr{top:-7px;right:-7px;cursor:ne-resize}
+.crop-handle.bl{bottom:-7px;left:-7px;cursor:sw-resize}
+.crop-handle.br{bottom:-7px;right:-7px;cursor:se-resize}
+.crop-ratio-btn { background:hsl(38 55% 92%);color:hsl(var(--primary));font-size:.75rem;padding:.3rem .85rem;border-radius:99px;font-weight:600;transition:all .3s;cursor:pointer; }
+.crop-ratio-btn.active { background:linear-gradient(135deg,hsl(348 75% 32%),hsl(290 50% 35%));color:white; }
+
+/* ===== FORM ===== */
+.form-success { display:none; }
+.form-success.show { display:flex; }
+
+/* ===== SECTION BACKGROUNDS ===== */
+.bg-cream { background:hsl(38 60% 96%); }
+.bg-dark { background:hsl(348 75% 18%); }
+.bg-card { background:white; }
+
+/* ===== PARALLAX ===== */
+.parallax-section { position:relative;overflow:hidden; }
+.parallax-inner { will-change:transform; }
+
+/* ===== HOVER MAGNETIC ===== */
+.magnetic { transition:transform .4s cubic-bezier(.34,1.56,.64,1); }
+
+/* ===== UNDERLINE LINK ===== */
+.fancy-link {
+  position:relative;display:inline-block;
+}
+.fancy-link::after {
+  content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,hsl(var(--gold)),hsl(var(--pink)));
+  transform:scaleX(0);transform-origin:right;
+  transition:transform .35s cubic-bezier(.77,0,.18,1);
+}
+.fancy-link:hover::after { transform:scaleX(1);transform-origin:left; }
+</style>
+</head>
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div id="cursorDot"></div>
+<div id="cursorRing"></div>
+<div id="scrollProgress"></div>
+
+<!-- ===== PAGE LOADER ===== -->
+<div id="pageLoader">
+  <div class="loader-mandala">
+    <div class="loader-heart">💍</div>
+  </div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+  <p class="loader-text">crafting your love story…</p>
+</div>
+
+<!-- ===== CURTAIN INTRO ===== -->
+<div id="curtainIntro">
+  <div class="curtain-center">
+    <div class="curtain-logo">
+      <p style="font-family:'Great Vibes',cursive;font-size:2rem;background:linear-gradient(120deg,hsl(348 75% 42%),hsl(335 80% 62%));-webkit-background-clip:text;background-clip:text;color:transparent;">welcome to</p>
+      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,8vw,5rem);font-weight:800;background:linear-gradient(120deg,hsl(348 75% 42%),hsl(42 88% 52%),hsl(290 50% 50%));background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 3s linear infinite;line-height:1.1;">TECH UR WED</h1>
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;color:hsl(var(--primary)/.6);font-size:1.1rem;margin-top:.5rem;">crafting your love story online</p>
+    </div>
+  </div>
+  <div class="curtain-panel left open-left">
+    <div class="gold-edge"></div>
+    <div style="position:absolute;inset:0;opacity:.05;background:repeating-linear-gradient(45deg,hsl(var(--gold)) 0,hsl(var(--gold)) 1px,transparent 0,transparent 50%);background-size:12px 12px;"></div>
+  </div>
+  <div class="curtain-panel right open-right">
+    <div class="gold-edge"></div>
+    <div style="position:absolute;inset:0;opacity:.05;background:repeating-linear-gradient(-45deg,hsl(var(--gold)) 0,hsl(var(--gold)) 1px,transparent 0,transparent 50%);background-size:12px 12px;"></div>
+  </div>
+</div>
+
+<!-- ===== NAVBAR ===== -->
+<nav id="navbar">
+  <div class="container mx-auto px-5 flex items-center justify-between h-16 md:h-[4.5rem]">
+    <a href="#" data-page="home" class="flex items-center gap-2.5">
+      <svg class="w-7 h-7 heart-beat" viewBox="0 0 24 24" fill="hsl(335 80% 62%)"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <div>
+        <div class="font-display font-extrabold text-lg md:text-xl gradient-text leading-none">TECH UR WED</div>
+        <div style="font-family:'Great Vibes',cursive;font-size:.7rem;color:hsl(var(--pink));line-height:1.2;">your love, our craft</div>
+      </div>
+    </a>
+    <ul class="hidden lg:flex items-center gap-1">
+      <li><a href="#" data-page="home" class="nav-link">Home</a></li>
+      <li><a href="#" data-page="services" class="nav-link">Services</a></li>
+      <li><a href="#" data-page="gallery" class="nav-link">Past Works</a></li>
+      <li><a href="#" data-page="about" class="nav-link">About</a></li>
+      <li><a href="#" data-page="contact" class="nav-link">Contact</a></li>
+    </ul>
+    <div class="flex items-center gap-3">
+      <a href="#" data-page="contact" class="hidden md:flex btn-glow text-sm py-2.5 px-5">✨ Book Demo</a>
+      <button id="menuBtn" class="lg:hidden w-10 h-10 grid place-items-center rounded-xl border" style="border-color:hsl(var(--gold)/.3);color:hsl(var(--primary))">
+        <svg id="menuIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mobileMenu">
+  <a href="#" data-page="home" class="mob-link">🏠 Home</a>
+  <a href="#" data-page="services" class="mob-link">🎁 Services</a>
+  <a href="#" data-page="gallery" class="mob-link">📸 Past Works</a>
+  <a href="#" data-page="about" class="mob-link">💖 About</a>
+  <a href="#" data-page="contact" class="mob-link">📧 Contact</a>
+  <a href="#" data-page="contact" class="btn-glow block text-center mt-4 py-3.5" style="border-radius:16px;">🎉 Book a Free Demo</a>
+</div>
+
+<main style="padding-top:4.5rem;">
+
+<!-- =================== HOME PAGE =================== -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero-section parallax-section" id="heroSection">
+    <div class="hero-blob" style="width:500px;height:500px;background:hsl(var(--pink)/.18);top:-150px;left:-100px;"></div>
+    <div class="hero-blob" style="width:400px;height:400px;background:hsl(var(--gold)/.22);bottom:-80px;right:-80px;animation-delay:-3s;"></div>
+    <div class="hero-blob" style="width:300px;height:300px;background:hsl(var(--plum)/.12);top:40%;left:40%;animation-delay:-5s;"></div>
+
+    <div id="confettiHero" class="absolute inset-0 overflow-hidden pointer-events-none"></div>
+
+    <div class="container mx-auto px-5 relative z-10 grid lg:grid-cols-2 gap-12 items-center py-16">
+      <div>
+        <span class="reveal inline-flex items-center gap-2 border px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6 bounce-in" style="background:hsl(var(--gold)/.2);color:hsl(var(--primary));border-color:hsl(var(--gold)/.4)">✨ Premium Wedding Invitations</span>
+
+        <h1 class="reveal" style="font-size:clamp(2.5rem,6vw,5rem);font-family:'Playfair Display',serif;font-weight:800;color:hsl(var(--primary));line-height:1.08;letter-spacing:-.03em;margin-bottom:1.25rem;">
+          Your Love Story<br/>
+          <span class="gradient-text">Deserves</span><br/>
+          a Website
+        </h1>
+
+        <p class="reveal" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.4rem;margin-bottom:.75rem;" data-delay="1">
+          <span class="gradient-text-rose">~ crafted with love, animated with magic ~</span>
+        </p>
+
+        <p class="reveal text-base md:text-lg max-w-xl mb-8" style="color:hsl(340 40% 15%/.7);" data-delay="2">We design stunning animated wedding invitation websites that wow your guests — with RSVP, galleries, music, venue maps & more. 100% personalised.</p>
+
+        <div class="reveal flex flex-wrap gap-4" data-delay="3">
+          <a href="#" data-page="contact" class="btn-glow btn-magnetic glow-pulse magnetic">💖 Get Your Invite</a>
+          <a href="#" data-page="gallery" class="btn-outline magnetic">View Past Works →</a>
+        </div>
+
+        <div class="reveal flex items-center gap-6 mt-10" data-delay="4">
+          <div class="flex -space-x-3">
+            <div class="w-9 h-9 rounded-full border-2 grid place-items-center text-white text-xs font-bold" style="background:linear-gradient(135deg,hsl(348 75% 42%),hsl(335 80% 62%));border-color:hsl(38 60% 96%)">A</div>
+            <div class="w-9 h-9 rounded-full border-2 grid place-items-center text-white text-xs font-bold" style="background:linear-gradient(135deg,hsl(290 50% 45%),hsl(335 80% 55%));border-color:hsl(38 60% 96%)">P</div>
+            <div class="w-9 h-9 rounded-full border-2 grid place-items-center text-white text-xs font-bold" style="background:linear-gradient(135deg,hsl(178 60% 38%),hsl(290 50% 45%));border-color:hsl(38 60% 96%)">R</div>
+            <div class="w-9 h-9 rounded-full border-2 grid place-items-center text-white text-xs font-bold" style="background:linear-gradient(135deg,hsl(42 88% 52%),hsl(348 75% 42%));border-color:hsl(38 60% 96%)">S</div>
+          </div>
+          <div>
+            <div class="text-sm" style="color:hsl(var(--gold))">★★★★★</div>
+            <p class="text-xs" style="color:hsl(340 40% 15%/.55)">Loved by happy couples worldwide</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- HERO CARD 3D -->
+      <div class="relative reveal-right tilt-3d" id="heroCard3d">
+        <div class="relative hero-invite-card">
+          <div class="aspect-[4/5]" style="background:linear-gradient(135deg,hsl(348 75% 42%),hsl(335 80% 62%),hsl(290 50% 50%))">
+            <svg viewBox="0 0 400 500" class="w-full h-full opacity-90">
+              <defs><radialGradient id="g1" cx="50%" cy="40%"><stop offset="0%" stop-color="hsl(42 88% 70%)"/><stop offset="100%" stop-color="hsl(348 75% 32%)"/></radialGradient></defs>
+              <rect width="400" height="500" fill="url(#g1)"/>
+              <g fill="hsl(42 88% 60%/.3)"><circle cx="80" cy="80" r="50"/><circle cx="320" cy="120" r="35"/><circle cx="100" cy="420" r="40"/><circle cx="350" cy="440" r="28"/></g>
+              <circle cx="200" cy="260" r="85" fill="none" stroke="hsl(42 88% 65%)" stroke-width="2" opacity=".6"/>
+              <circle cx="200" cy="260" r="65" fill="none" stroke="hsl(42 88% 75%)" stroke-width="1.5" opacity=".8"/>
+              <text x="200" y="272" text-anchor="middle" font-family="Great Vibes" font-size="44" fill="hsl(38 60% 96%)">Aarav &amp; Priya</text>
+            </svg>
+          </div>
+          <div class="float-anim absolute top-5 right-5 px-3 py-1.5 rounded-full flex items-center gap-2" style="background:hsl(38 60% 96%/.95);font-size:.75rem;font-weight:600;color:hsl(var(--primary))">
+            <span class="w-2 h-2 rounded-full pulse-dot" style="background:hsl(var(--teal));display:inline-block;"></span>
+            Live Demo Available
+          </div>
+          <div class="absolute bottom-5 left-5 right-5 rounded-2xl p-4" style="background:hsl(38 60% 96%/.95);backdrop-filter:blur(8px)">
+            <p style="font-family:'Great Vibes',cursive;font-size:1.4rem;background:linear-gradient(120deg,hsl(348 75% 42%),hsl(335 80% 62%));-webkit-background-clip:text;background-clip:text;color:transparent;">Aarav & Priya</p>
+            <p class="text-xs" style="color:hsl(340 40% 15%/.55)">A magical wedding website ✨</p>
+          </div>
+        </div>
+        <!-- Corner accents -->
+        <div class="absolute -top-3 -left-3 w-14 h-14 rounded-tl-2xl" style="border-left:3px solid hsl(var(--gold));border-top:3px solid hsl(var(--gold));"></div>
+        <div class="absolute -bottom-3 -right-3 w-14 h-14 rounded-br-2xl" style="border-right:3px solid hsl(var(--pink));border-bottom:3px solid hsl(var(--pink));"></div>
+        <!-- Floating emojis -->
+        <div class="float-emoji" style="top:-20px;right:-20px;animation-delay:.5s">💍</div>
+        <div class="float-emoji" style="top:45%;left:-28px;animation-delay:1.5s;font-size:1.2rem">🌸</div>
+        <div class="float-emoji" style="bottom:-25px;left:38%;animation-delay:1s">🌹</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE BAND -->
+  <div style="background:linear-gradient(135deg,hsl(348 75% 32%) 0%,hsl(290 50% 35%) 50%,hsl(335 80% 50%) 100%);padding:.875rem 0;overflow:hidden;border-top:2px solid hsl(var(--gold)/.3);border-bottom:2px solid hsl(var(--gold)/.3)">
+    <div class="marquee-track">
+      <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:hsl(var(--cream));flex-shrink:0">✨ Animated Invites <span style="color:hsl(var(--gold));margin:0 1rem">✦</span></span>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:hsl(var(--cream));flex-shrink:0">💍 RSVP Forms <span style="color:hsl(var(--gold));margin:0 1rem">✦</span></span>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:hsl(var(--cream));flex-shrink:0">📸 Photo Galleries <span style="color:hsl(var(--gold));margin:0 1rem">✦</span></span>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:hsl(var(--cream));flex-shrink:0">🎵 Background Music <span style="color:hsl(var(--gold));margin:0 1rem">✦</span></span>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:hsl(var(--cream));flex-shrink:0">📍 Venue Maps <span style="color:hsl(var(--gold));margin:0 1rem">✦</span></span>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:hsl(var(--cream));flex-shrink:0">💌 Custom Designs <span style="color:hsl(var(--gold));margin:0 1rem">✦</span></span>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:hsl(var(--cream));flex-shrink:0">🌹 Floral Themes <span style="color:hsl(var(--gold));margin:0 1rem">✦</span></span>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:hsl(var(--cream));flex-shrink:0">🪔 Traditional + Modern <span style="color:hsl(var(--gold));margin:0 1rem">✦</span></span>
+      <!-- duplicate for seamless loop -->
+      <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:hsl(var(--cream));flex-shrink:0">✨ Animated Invites <span style="color:hsl(var(--gold));margin:0 1rem">✦</span></span>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:hsl(var(--cream));flex-shrink:0">💍 RSVP Forms <span style="color:hsl(var(--gold));margin:0 1rem">✦</span></span>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:hsl(var(--cream));flex-shrink:0">📸 Photo Galleries <span style="color:hsl(var(--gold));margin:0 1rem">✦</span></span>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:hsl(var(--cream));flex-shrink:0">🎵 Background Music <span style="color:hsl(var(--gold));margin:0 1rem">✦</span></span>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:hsl(var(--cream));flex-shrink:0">📍 Venue Maps <span style="color:hsl(var(--gold));margin:0 1rem">✦</span></span>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:hsl(var(--cream));flex-shrink:0">💌 Custom Designs <span style="color:hsl(var(--gold));margin:0 1rem">✦</span></span>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:hsl(var(--cream));flex-shrink:0">🌹 Floral Themes <span style="color:hsl(var(--gold));margin:0 1rem">✦</span></span>
+      <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:hsl(var(--cream));flex-shrink:0">🪔 Traditional + Modern <span style="color:hsl(var(--gold));margin:0 1rem">✦</span></span>
+    </div>
+  </div>
+
+  <!-- WHY US -->
+  <section class="py-24 bg-cream">
+    <div class="container mx-auto px-5">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="divider reveal"><span style="font-family:'Great Vibes',cursive;font-size:1.6rem;" class="gradient-text-rose">why couples love us</span></div>
+        <h2 class="reveal text-4xl md:text-5xl" data-delay="1">Every Detail, <span class="gradient-text">Designed With Love</span></h2>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="whyUsGrid"></div>
+    </div>
+  </section>
+
+  <!-- PARALLAX BAND -->
+  <section class="parallax-section py-32 relative overflow-hidden" style="background:hsl(var(--primary))">
+    <div class="parallax-inner absolute inset-0" id="parallaxBand" style="background:linear-gradient(135deg,hsl(290 50% 25%),hsl(348 75% 30%),hsl(335 80% 40%));opacity:.6;"></div>
+    <div class="absolute inset-0" style="background:hsl(var(--primary)/.6);"></div>
+    <div class="container mx-auto px-5 relative z-10 text-center max-w-3xl mx-auto">
+      <p class="reveal font-script text-4xl mb-4" style="font-family:'Great Vibes',cursive;color:hsl(var(--gold));font-size:2.5rem;">a celebration of love</p>
+      <h2 class="reveal text-4xl md:text-6xl" style="color:hsl(var(--cream));" data-delay="1">Where <span class="gradient-text-gold">Tradition</span> Meets Technology</h2>
+      <p class="reveal text-lg mt-5 leading-relaxed" style="color:hsl(var(--cream)/.75);" data-delay="2">From traditional Indian weddings to modern celebrations, we blend timeless beauty with cutting-edge web magic. Every site is a digital heirloom of your love story.</p>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="py-24" style="background:linear-gradient(160deg,hsl(38 60% 96%),hsl(36 50% 92%))">
+    <div class="container mx-auto px-5">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="divider reveal"><span style="font-family:'Great Vibes',cursive;font-size:1.6rem;" class="gradient-text-rose">how it works</span></div>
+        <h2 class="reveal text-4xl md:text-5xl" data-delay="1">From Idea to Invite <span class="gradient-text">in 5 Days</span></h2>
+      </div>
+      <div class="grid md:grid-cols-4 gap-6" id="processGrid"></div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-24 bg-cream">
+    <div class="container mx-auto px-5">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="divider reveal"><span style="font-family:'Great Vibes',cursive;font-size:1.6rem;" class="gradient-text-rose">happy couples</span></div>
+        <h2 class="reveal text-4xl md:text-5xl" data-delay="1">Words From <span class="gradient-text">Newlyweds</span></h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6" id="testimonialsGrid"></div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="py-24 relative overflow-hidden" style="background:linear-gradient(135deg,hsl(348 75% 32%) 0%,hsl(290 50% 35%) 50%,hsl(335 80% 50%) 100%)">
+    <div id="confettiCTA" class="absolute inset-0 overflow-hidden pointer-events-none"></div>
+    <div class="absolute inset-0" style="background:radial-gradient(ellipse at center,hsl(42 88% 52%/.1) 0%,transparent 70%);"></div>
+    <div class="container mx-auto px-5 relative z-10 text-center max-w-3xl mx-auto">
+      <p class="reveal" style="font-family:'Great Vibes',cursive;font-size:2.5rem;color:hsl(var(--gold));">ready to get started?</p>
+      <h2 class="reveal text-4xl md:text-6xl mt-2 mb-4" style="color:hsl(var(--cream));" data-delay="1">Let's Make Your Wedding <span class="gradient-text-gold">Unforgettable</span></h2>
+      <p class="reveal text-lg mb-8" style="color:hsl(var(--cream)/.75);" data-delay="2">Free consultation · Custom design · Delivered in days</p>
+      <div class="reveal flex flex-wrap gap-4 justify-center" data-delay="3">
+        <a href="#" data-page="contact" class="magnetic inline-flex items-center gap-2 px-8 py-4 rounded-full font-bold hover:scale-105 transition-all" style="background:hsl(var(--gold));color:hsl(var(--primary));box-shadow:0 8px 32px hsl(var(--gold)/.5)">📧 Get In Touch</a>
+        <a href="https://wa.me/916356231667" target="_blank" rel="noopener" class="magnetic inline-flex items-center gap-2 border-2 px-8 py-4 rounded-full font-semibold transition-all hover:-translate-y-1" style="background:hsl(var(--cream)/.12);border-color:hsl(var(--cream)/.4);color:hsl(var(--cream))">💬 WhatsApp Us</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- =================== SERVICES PAGE =================== -->
+<div class="page" id="page-services">
+  <section class="py-24 bg-cream relative overflow-hidden">
+    <div id="confettiServices" class="absolute inset-0 overflow-hidden pointer-events-none"></div>
+    <div class="container mx-auto px-5 text-center max-w-3xl mx-auto relative">
+      <span class="reveal inline-flex items-center gap-2 border px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-5" style="background:hsl(var(--pink)/.15);color:hsl(var(--pink));border-color:hsl(var(--pink)/.3)">🎁 Wedding Website Packages</span>
+      <h1 class="reveal text-5xl md:text-7xl mt-3 mb-5" data-delay="1">Pick Your <span class="gradient-text">Perfect Package</span></h1>
+      <p class="reveal" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.3rem;" data-delay="2"><span class="gradient-text-rose">~ transparent pricing, no hidden fees ~</span></p>
+      <p class="reveal text-base mt-3" style="color:hsl(340 40% 15%/.7);" data-delay="3">Every package is fully customisable. Don't see what you need? <a href="#" data-page="contact" class="fancy-link font-semibold" style="color:hsl(var(--pink))">Talk to us</a>.</p>
+    </div>
+  </section>
+  <section class="py-20 bg-cream">
+    <div class="container mx-auto px-5">
+      <div class="grid md:grid-cols-3 gap-6 lg:gap-8" id="packagesGrid"></div>
+    </div>
+  </section>
+  <!-- Custom theme section -->
+  <section class="py-20" style="background:linear-gradient(160deg,hsl(38 60% 96%),hsl(36 50% 92%))">
+    <div class="container mx-auto px-5">
+      <div class="grid lg:grid-cols-2 gap-10 items-center bg-white rounded-3xl p-8 lg:p-14 border-2 shadow-lg reveal" style="border-color:hsl(var(--gold)/.3)">
+        <div class="relative aspect-square rounded-3xl overflow-hidden">
+          <div class="w-full h-full" style="background:linear-gradient(135deg,hsl(42 88% 60%),hsl(335 80% 62%))">
+            <svg viewBox="0 0 400 400" class="w-full h-full">
+              <g fill="hsl(348 75% 42%/.3)"><circle cx="100" cy="120" r="60"/><circle cx="300" cy="280" r="80"/></g>
+              <g transform="translate(200,200)">
+                <circle r="50" fill="none" stroke="hsl(38 60% 94%)" stroke-width="3"/>
+                <circle cx="-30" cy="-10" r="35" fill="none" stroke="hsl(42 88% 70%)" stroke-width="2"/>
+                <circle cx="30" cy="10" r="35" fill="none" stroke="hsl(42 88% 70%)" stroke-width="2"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <span class="inline-flex items-center gap-2 border px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4" style="background:hsl(var(--teal)/.15);color:hsl(var(--teal));border-color:hsl(var(--teal)/.3)">✨ Need Something Unique?</span>
+          <h2 class="text-4xl md:text-5xl mb-4">Custom Themes & Add-Ons</h2>
+          <p class="mb-6 leading-relaxed" style="color:hsl(340 40% 15%/.7)">Want a Bollywood theme? A 3D animated couple? Live wedding streaming? A guest book with voice notes? We build the impossible.</p>
+          <ul class="space-y-3 mb-7">
+            <li class="flex items-center gap-2 text-sm" style="color:hsl(340 40% 15%/.8)">💖 3D animations & interactive scenes</li>
+            <li class="flex items-center gap-2 text-sm" style="color:hsl(340 40% 15%/.8)">💖 Live wedding streaming integration</li>
+            <li class="flex items-center gap-2 text-sm" style="color:hsl(340 40% 15%/.8)">💖 Multi-language (Hindi, Gujarati, Tamil…)</li>
+            <li class="flex items-center gap-2 text-sm" style="color:hsl(340 40% 15%/.8)">💖 Custom illustrations & art</li>
+          </ul>
+          <a href="#" data-page="contact" class="btn-glow inline-flex">Discuss Your Idea →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- =================== GALLERY PAGE =================== -->
+<div class="page" id="page-gallery">
+  <section class="py-24 bg-cream relative overflow-hidden">
+    <div class="absolute -top-20 left-1/4 w-72 h-72 rounded-full blur-3xl" style="background:hsl(var(--pink)/.15)"></div>
+    <div class="absolute -bottom-20 right-1/4 w-72 h-72 rounded-full blur-3xl" style="background:hsl(var(--gold)/.18)"></div>
+    <div class="container mx-auto px-5 relative text-center max-w-3xl mx-auto">
+      <span class="reveal inline-flex items-center gap-2 border px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-5" style="background:hsl(var(--gold)/.2);color:hsl(var(--primary));border-color:hsl(var(--gold)/.4)">📸 Our Wedding Portfolio</span>
+      <h1 class="reveal text-5xl md:text-7xl mt-3 mb-5" data-delay="1">Past Wedding <span class="gradient-text">Websites</span></h1>
+      <p class="reveal" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.3rem;" data-delay="2"><span class="gradient-text-rose">~ love stories we've helped tell ~</span></p>
+    </div>
+  </section>
+  <section class="py-16 bg-cream">
+    <div class="container mx-auto px-5">
+      <div id="galleryGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      <div id="galleryEmpty" class="max-w-2xl mx-auto text-center py-20 hidden">
+        <div class="w-24 h-24 rounded-full grid place-items-center mx-auto mb-6 shadow-lg text-4xl float-anim" style="background:linear-gradient(135deg,hsl(348 75% 42%),hsl(335 80% 62%))">💍</div>
+        <h2 class="text-4xl mb-4 gradient-text-rose">Your Story Could Be Here</h2>
+        <p class="text-lg mb-8 leading-relaxed max-w-xl mx-auto" style="color:hsl(340 40% 15%/.7)">Our portfolio is being curated with the most beautiful wedding websites. Be one of the first couples featured — let's create something magical together.</p>
+        <a href="#" data-page="contact" class="btn-glow">💖 Start Your Project</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- =================== ABOUT PAGE =================== -->
+<div class="page" id="page-about">
+  <section class="py-24 bg-cream relative overflow-hidden">
+    <div id="confettiAbout" class="absolute inset-0 overflow-hidden pointer-events-none"></div>
+    <div class="container mx-auto px-5 relative grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <span class="reveal inline-flex items-center gap-2 border px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-5" style="background:hsl(var(--pink)/.15);color:hsl(var(--pink));border-color:hsl(var(--pink)/.3)">💖 Our Story</span>
+        <h1 class="reveal text-5xl md:text-7xl mt-3 mb-4" data-delay="1">Made For Lovers,<br/><span class="gradient-text">By Lovers</span></h1>
+        <p class="reveal" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.4rem;" data-delay="2"><span class="gradient-text-rose">~ where every pixel sings of love ~</span></p>
+        <p class="reveal text-lg leading-relaxed mt-5 mb-4" style="color:hsl(340 40% 15%/.7);" data-delay="3">TECH UR WED was born from a simple idea: <strong style="color:hsl(var(--primary))">every love story deserves to be celebrated beautifully</strong>. We're passionate designers and developers who believe weddings shouldn't end with a paper card.</p>
+        <p class="reveal leading-relaxed" style="color:hsl(340 40% 15%/.7);" data-delay="4">From traditional Indian weddings to destination celebrations, we craft animated invitation websites that wow guests, save trees, and create memories that live forever.</p>
+      </div>
+      <div class="relative reveal-right">
+        <div class="aspect-square rounded-3xl overflow-hidden border-4" style="border-color:hsl(var(--gold)/.4);box-shadow:0 20px 60px hsl(348 60% 22%/.2)">
+          <div class="w-full h-full" style="background:linear-gradient(135deg,hsl(290 50% 35%),hsl(348 75% 42%),hsl(42 88% 52%))">
+            <svg viewBox="0 0 400 400" class="w-full h-full opacity-90">
+              <g transform="translate(200,200)">
+                <circle r="120" fill="none" stroke="hsl(38 60% 94%/.3)" stroke-width="2"/>
+                <circle r="90" fill="none" stroke="hsl(42 88% 70%/.5)" stroke-width="1.5"/>
+                <text y="-10" text-anchor="middle" font-family="Great Vibes" font-size="52" fill="hsl(38 60% 94%)">forever</text>
+                <text y="50" text-anchor="middle" font-family="Playfair Display" font-size="22" fill="hsl(42 88% 70%)">&amp;</text>
+                <text y="110" text-anchor="middle" font-family="Great Vibes" font-size="52" fill="hsl(38 60% 94%)">always</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div class="absolute -bottom-5 -left-5 bg-white rounded-2xl p-4 shadow-lg border float-anim" style="border-color:hsl(var(--gold)/.3)">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-full grid place-items-center text-2xl" style="background:linear-gradient(135deg,hsl(348 75% 42%),hsl(335 80% 62%))">💖</div>
+            <div>
+              <p class="font-bold text-2xl gradient-text">100%</p>
+              <p class="text-xs" style="color:hsl(340 40% 15%/.6)">Couples in love</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="py-24 bg-cream">
+    <div class="container mx-auto px-5">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="divider reveal"><span style="font-family:'Great Vibes',cursive;font-size:1.6rem;" class="gradient-text-rose">our values</span></div>
+        <h2 class="reveal text-4xl md:text-5xl" data-delay="1">What We <span class="gradient-text">Stand For</span></h2>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5" id="valuesGrid"></div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="py-20 relative overflow-hidden" style="background:linear-gradient(135deg,hsl(348 75% 32%) 0%,hsl(290 50% 35%) 50%,hsl(335 80% 50%) 100%)">
+    <div class="container mx-auto px-5">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8" id="statsGrid"></div>
+    </div>
+  </section>
+
+  <!-- PROMISE -->
+  <section class="py-24 bg-cream">
+    <div class="container mx-auto px-5 max-w-3xl mx-auto text-center">
+      <div class="text-5xl mb-6 reveal">✨</div>
+      <h2 class="reveal text-4xl md:text-5xl mb-6" data-delay="1">Our Promise <span class="gradient-text">To You</span></h2>
+      <p class="reveal" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.4rem;line-height:1.7;color:hsl(340 40% 15%/.8);" data-delay="2">"We treat your wedding website like our own — with love, attention, and the magic it deserves. Because when you say 'I do', the whole world should celebrate beautifully."</p>
+      <p class="reveal mt-6" style="font-family:'Great Vibes',cursive;font-size:2rem;" data-delay="3"><span class="gradient-text-rose">— TECH UR WED Team 💕</span></p>
+    </div>
+  </section>
+</div>
+
+<!-- =================== CONTACT PAGE =================== -->
+<div class="page" id="page-contact">
+  <section class="py-20 bg-cream relative overflow-hidden">
+    <div id="confettiContact" class="absolute inset-0 overflow-hidden pointer-events-none"></div>
+    <div class="container mx-auto px-5 relative text-center max-w-3xl mx-auto">
+      <span class="reveal inline-flex items-center gap-2 border px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-5" style="background:hsl(var(--teal)/.15);color:hsl(var(--teal));border-color:hsl(var(--teal)/.3)">💖 Let's Talk</span>
+      <h1 class="reveal text-5xl md:text-7xl mt-3 mb-3" data-delay="1">Say Hello to <span class="gradient-text">Forever</span></h1>
+      <p class="reveal" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.3rem;" data-delay="2"><span class="gradient-text-rose">~ we'd love to hear your love story ~</span></p>
+    </div>
+  </section>
+  <section class="py-16 bg-cream">
+    <div class="container mx-auto px-5 grid lg:grid-cols-5 gap-10">
+      <div class="lg:col-span-2 space-y-4 reveal">
+        <div class="rounded-3xl p-7 relative overflow-hidden" style="background:linear-gradient(135deg,hsl(348 75% 32%),hsl(290 50% 35%),hsl(335 80% 50%));color:hsl(var(--cream))">
+          <span class="absolute top-4 right-4 text-2xl" style="animation:sparkle-anim 2.5s infinite">✨</span>
+          <h3 class="text-2xl mb-2" style="color:hsl(var(--cream))">Quick Contact</h3>
+          <p class="text-sm" style="color:hsl(var(--cream)/.8)">Fill the form or reach us directly — we usually reply in under an hour!</p>
+        </div>
+        <a href="mailto:techwed2026@gmail.com" class="flex items-center gap-4 p-5 bg-white rounded-2xl border transition-all hover:-translate-y-1 hover:shadow-lg" style="border-color:hsl(35 40% 88%)">
+          <div class="w-12 h-12 rounded-xl grid place-items-center text-xl" style="background:hsl(var(--pink)/.15)">📧</div>
+          <div>
+            <p class="text-xs uppercase tracking-widest font-bold" style="color:hsl(340 40% 15%/.45)">Email</p>
+            <p class="font-semibold" style="color:hsl(var(--primary))">techwed2026@gmail.com</p>
+          </div>
+        </a>
+        <a href="https://wa.me/916356231667" target="_blank" rel="noopener" class="flex items-center gap-4 p-5 bg-white rounded-2xl border transition-all hover:-translate-y-1 hover:shadow-lg" style="border-color:hsl(35 40% 88%)">
+          <div class="w-12 h-12 rounded-xl grid place-items-center text-xl" style="background:hsl(var(--teal)/.15)">💬</div>
+          <div>
+            <p class="text-xs uppercase tracking-widest font-bold" style="color:hsl(340 40% 15%/.45)">WhatsApp</p>
+            <p class="font-semibold" style="color:hsl(var(--primary))">+91 63562 31667</p>
+          </div>
+        </a>
+        <div class="flex items-center gap-4 p-5 bg-white rounded-2xl border" style="border-color:hsl(35 40% 88%)">
+          <div class="w-12 h-12 rounded-xl grid place-items-center text-xl" style="background:hsl(var(--gold)/.15)">📍</div>
+          <div>
+            <p class="text-xs uppercase tracking-widest font-bold" style="color:hsl(340 40% 15%/.45)">Service Area</p>
+            <p class="font-semibold" style="color:hsl(var(--primary))">India · Worldwide</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-3 reveal" data-delay="2">
+        <form id="contactForm" class="bg-white rounded-3xl p-7 md:p-10 border shadow-lg" style="border-color:hsl(var(--gold)/.3)">
+          <h3 class="text-3xl mb-2">Tell Us About Your Wedding</h3>
+          <p class="text-sm mb-6" style="color:hsl(340 40% 15%/.55)">All fields except message are optional — share what you're comfortable with.</p>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs font-bold uppercase tracking-widest" style="color:hsl(340 40% 15%/.65)">Your Name *</label>
+              <input name="name" required class="w-full mt-1.5 px-4 py-3 border-2 rounded-xl outline-none transition-all" style="background:hsl(35 50% 97%);border-color:hsl(35 40% 86%)" placeholder="Aarav & Priya" />
+            </div>
+            <div>
+              <label class="text-xs font-bold uppercase tracking-widest" style="color:hsl(340 40% 15%/.65)">Email *</label>
+              <input type="email" name="email" required class="w-full mt-1.5 px-4 py-3 border-2 rounded-xl outline-none" style="background:hsl(35 50% 97%);border-color:hsl(35 40% 86%)" placeholder="you@love.com" />
+            </div>
+            <div>
+              <label class="text-xs font-bold uppercase tracking-widest" style="color:hsl(340 40% 15%/.65)">Phone Number *</label>
+              <input type="tel" name="Number" required class="w-full mt-1.5 px-4 py-3 border-2 rounded-xl outline-none" style="background:hsl(35 50% 97%);border-color:hsl(35 40% 86%)" placeholder="+91 00000 00000" />
+            </div>
+            <div>
+              <label class="text-xs font-bold uppercase tracking-widest" style="color:hsl(340 40% 15%/.65)">Wedding Date</label>
+              <input name="date" class="w-full mt-1.5 px-4 py-3 border-2 rounded-xl outline-none" style="background:hsl(35 50% 97%);border-color:hsl(35 40% 86%)" placeholder="Dec 15, 2026" />
+            </div>
+            <div class="md:col-span-2">
+              <label class="text-xs font-bold uppercase tracking-widest" style="color:hsl(340 40% 15%/.65)">Package Interest</label>
+              <select name="pkg" class="w-full mt-1.5 px-4 py-3 border-2 rounded-xl outline-none" style="background:hsl(35 50% 97%);border-color:hsl(35 40% 86%)">
+                <option>Not sure yet</option><option>Classic – ₹2,999</option><option>Royal – ₹5,999</option><option>Luxe – ₹9,999</option><option>Custom</option>
+              </select>
+            </div>
+          </div>
+          <div class="mt-4">
+            <label class="text-xs font-bold uppercase tracking-widest" style="color:hsl(340 40% 15%/.65)">Tell us about your dream invite *</label>
+            <textarea name="message" required rows="4" class="w-full mt-1.5 px-4 py-3 border-2 rounded-xl outline-none resize-none" style="background:hsl(35 50% 97%);border-color:hsl(35 40% 86%)" placeholder="Theme ideas, must-have features, anything special..."></textarea>
+          </div>
+          <button type="submit" class="btn-glow mt-6 w-full justify-center glow-pulse">💌 Submit Form</button>
+          <p class="text-xs text-center mt-3" style="color:hsl(340 40% 15%/.45)">Or reach us at <a href="mailto:techwed2026@gmail.com" class="fancy-link" style="color:hsl(var(--pink))">techwed2026@gmail.com</a></p>
+        </form>
+        <div id="formSuccess" class="form-success bg-white rounded-3xl p-10 border shadow-lg flex-col items-center text-center" style="border-color:hsl(var(--gold)/.3)">
+          <div class="w-20 h-20 rounded-full grid place-items-center mx-auto mb-5 text-4xl float-anim" style="background:linear-gradient(135deg,hsl(348 75% 42%),hsl(335 80% 62%))">💖</div>
+          <h3 class="text-3xl mb-3 gradient-text-rose">Message Received!</h3>
+          <p class="text-base mb-6" style="color:hsl(340 40% 15%/.7)">Thank you for reaching out! We've saved your details and will get back to you soon.</p>
+          <div class="flex flex-wrap gap-3 justify-center">
+            <a href="https://wa.me/916356231667" target="_blank" rel="noopener" class="btn-glow text-sm">💬 WhatsApp Us</a>
+            <button id="sendAnotherBtn" class="btn-outline text-sm py-2.5 px-5">Send Another →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="relative pt-16 pb-6 overflow-hidden" style="background:linear-gradient(180deg,hsl(348 80% 20%) 0%,hsl(348 75% 32%) 50%,hsl(348 80% 16%) 100%);color:hsl(var(--cream))">
+  <div class="absolute top-0 inset-x-0 h-1" style="background:linear-gradient(90deg,hsl(var(--gold)),hsl(var(--pink)),hsl(var(--plum)),hsl(var(--gold)))"></div>
+  <div class="absolute -top-20 -right-20 w-72 h-72 rounded-full blur-3xl float-anim" style="background:hsl(var(--pink)/.15)"></div>
+  <div class="container mx-auto px-5 relative z-10">
+    <div class="grid md:grid-cols-4 gap-10 mb-12">
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-2.5 mb-4">
+          <svg class="w-7 h-7" viewBox="0 0 24 24" fill="hsl(335 80% 62%)"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <div>
+            <div class="font-display font-extrabold text-2xl" style="color:hsl(var(--cream))">TECH UR WED</div>
+            <div style="font-family:'Great Vibes',cursive;font-size:.9rem;color:hsl(var(--pink));line-height:1.3;">your love, our craft</div>
+          </div>
+        </div>
+        <p class="text-sm max-w-md leading-relaxed" style="color:hsl(var(--cream)/.65)">We craft stunning, animated wedding invitation websites that make your special day unforgettable. Every site is unique, romantic, and built with love.</p>
+        <div class="flex gap-3 mt-5">
+          <a href="https://instagram.com" target="_blank" rel="noopener" class="w-10 h-10 grid place-items-center rounded-full border hover:bg-white/15 transition-all" style="border-color:hsl(var(--gold)/.3)">📷</a>
+          <a href="https://facebook.com" target="_blank" rel="noopener" class="w-10 h-10 grid place-items-center rounded-full border hover:bg-white/15 transition-all" style="border-color:hsl(var(--gold)/.3)">📘</a>
+          <a href="https://wa.me/916356231667" target="_blank" rel="noopener" class="w-10 h-10 grid place-items-center rounded-full border hover:bg-white/15 transition-all" style="border-color:hsl(var(--gold)/.3)">💬</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="font-display text-lg mb-4" style="color:hsl(var(--cream))">Explore</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#" data-page="home" class="hover:text-white transition-colors" style="color:hsl(var(--cream)/.55)">Home</a></li>
+          <li><a href="#" data-page="services" class="hover:text-white transition-colors" style="color:hsl(var(--cream)/.55)">Services</a></li>
+          <li><a href="#" data-page="gallery" class="hover:text-white transition-colors" style="color:hsl(var(--cream)/.55)">Past Works</a></li>
+          <li><a href="#" data-page="about" class="hover:text-white transition-colors" style="color:hsl(var(--cream)/.55)">About</a></li>
+          <li><a href="#" data-page="contact" class="hover:text-white transition-colors" style="color:hsl(var(--cream)/.55)">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-display text-lg mb-4" style="color:hsl(var(--cream))">Get in Touch</h4>
+        <ul class="space-y-3 text-sm">
+          <li class="flex items-start gap-2" style="color:hsl(var(--cream)/.65)"><span style="color:hsl(var(--gold))">✉</span><a href="mailto:techwed2026@gmail.com" class="hover:text-white break-all">techwed2026@gmail.com</a></li>
+          <li class="flex items-start gap-2" style="color:hsl(var(--cream)/.65)"><span style="color:hsl(var(--gold))">💬</span><a href="https://wa.me/916356231667" target="_blank" rel="noopener" class="hover:text-white">+91 63562 31667</a></li>
+          <li class="flex items-start gap-2" style="color:hsl(var(--cream)/.65)"><span style="color:hsl(var(--gold))">📍</span><span>India · Worldwide service</span></li>
+        </ul>
+        <button id="adminBtn" class="mt-6 text-xs px-3 py-1.5 rounded-full border transition-all hover:bg-white/10" style="color:hsl(var(--cream)/.35);border-color:hsl(var(--cream)/.15)">🔐 Admin</button>
+      </div>
+    </div>
+    <div class="border-t pt-5 flex flex-col md:flex-row justify-between items-center gap-3" style="border-color:hsl(var(--gold)/.18)">
+      <p class="text-xs" style="color:hsl(var(--cream)/.4)">© <span id="year"></span> TECH UR WED. Made with 💖 for couples in love.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== ADMIN LOGIN MODAL ===== -->
+<div id="adminLoginOverlay" class="admin-overlay">
+  <div class="bg-white rounded-3xl p-8 w-full max-w-md mx-4 border-2" style="border-color:hsl(var(--gold)/.4);box-shadow:0 30px 80px rgba(0,0,0,.4)">
+    <div class="text-center mb-6">
+      <div class="w-16 h-16 rounded-full grid place-items-center mx-auto mb-3 shadow-lg text-2xl" style="background:linear-gradient(135deg,hsl(348 75% 42%),hsl(290 50% 45%))">🔐</div>
+      <h2 class="text-3xl">Admin Login</h2>
+      <p class="text-sm mt-1" style="color:hsl(340 40% 15%/.55)">Enter your password to access the admin panel</p>
+    </div>
+    <div>
+      <label class="text-xs font-bold uppercase tracking-widest" style="color:hsl(340 40% 15%/.65)">Password</label>
+      <input type="password" id="adminPass" class="w-full mt-1.5 px-4 py-3 border-2 rounded-xl outline-none transition-all" style="background:hsl(35 50% 97%);border-color:hsl(35 40% 86%)" placeholder="Enter admin password" />
+      <p id="loginError" class="text-xs mt-2 hidden" style="color:hsl(0 70% 50%)">❌ Wrong password. Try again.</p>
+      <div class="flex gap-3 mt-5">
+        <button id="loginCancel" class="flex-1 py-3 rounded-full border font-semibold" style="border-color:hsl(35 40% 86%);color:hsl(340 40% 15%/.65)">Cancel</button>
+        <button id="loginSubmit" class="flex-1 btn-glow justify-center py-3">Login →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ADMIN PANEL ===== -->
+<div id="adminOverlay" class="admin-overlay">
+  <div class="admin-panel m-4">
+    <div class="sticky top-0 z-10 flex items-center justify-between p-6 border-b" style="background:hsl(38 60% 97%);border-color:hsl(var(--gold)/.3)">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full grid place-items-center text-white" style="background:linear-gradient(135deg,hsl(348 75% 42%),hsl(290 50% 45%))">🔐</div>
+        <div>
+          <h2 class="text-2xl">Admin Panel</h2>
+          <p class="text-xs" style="color:hsl(340 40% 15%/.45)">TECH UR WED Dashboard</p>
+        </div>
+      </div>
+      <button id="adminClose" class="w-10 h-10 rounded-full border grid place-items-center hover:bg-red-50 transition-all" style="border-color:hsl(35 40% 86%)">✕</button>
+    </div>
+    <div class="flex gap-2 p-4 border-b" style="border-color:hsl(var(--gold)/.2)">
+      <button class="admin-tab active" data-tab="portfolio">📸 Portfolio</button>
+      <button class="admin-tab" data-tab="enquiries">💬 Enquiries</button>
+    </div>
+    <div class="p-6">
+
+      <!-- PORTFOLIO TAB -->
+      <div class="admin-section active" id="tab-portfolio">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-2xl">Manage Portfolio</h3>
+          <button id="addProjectBtn" class="btn-glow text-sm py-2.5 px-5">+ Add Project</button>
+        </div>
+        <div id="projectForm" class="bg-card rounded-2xl p-6 mb-6 border-2 hidden" style="border-color:hsl(var(--gold)/.3)">
+          <h4 class="text-xl mb-4" id="projectFormTitle">Add New Project</h4>
+          <input type="hidden" id="editProjectId" />
+          <div class="grid md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <label class="text-xs font-bold uppercase tracking-widest block mb-1.5" style="color:hsl(340 40% 15%/.65)">Couple Name *</label>
+              <input id="pName" class="w-full px-4 py-2.5 border-2 rounded-xl outline-none" style="background:hsl(35 50% 97%);border-color:hsl(35 40% 86%)" placeholder="Aarav & Priya" />
+            </div>
+            <div>
+              <label class="text-xs font-bold uppercase tracking-widest block mb-1.5" style="color:hsl(340 40% 15%/.65)">Website URL *</label>
+              <input id="pUrl" class="w-full px-4 py-2.5 border-2 rounded-xl outline-none" style="background:hsl(35 50% 97%);border-color:hsl(35 40% 86%)" placeholder="https://example.com" />
+            </div>
+            <div class="md:col-span-2">
+              <label class="text-xs font-bold uppercase tracking-widest block mb-1.5" style="color:hsl(340 40% 15%/.65)">Project Image *</label>
+              <div class="flex flex-col sm:flex-row gap-3">
+                <label class="flex-1 flex flex-col items-center justify-center gap-2 border-2 border-dashed rounded-xl p-4 cursor-pointer transition-all hover:border-yellow-400" style="border-color:hsl(var(--gold)/.4);background:hsl(38 55% 96%)">
+                  <span class="text-2xl">📁</span>
+                  <span class="text-xs font-semibold text-center" style="color:hsl(var(--primary))">Upload from Device<br/><span style="color:hsl(340 40% 15%/.4);font-weight:400">JPG, PNG, WEBP</span></span>
+                  <input type="file" id="imageFileInput" accept="image/*" class="hidden" />
+                </label>
+                <div class="flex-1 flex flex-col gap-1">
+                  <label class="text-xs font-semibold" style="color:hsl(340 40% 15%/.5)">Or paste image URL</label>
+                  <input id="pImage" class="w-full px-4 py-2.5 border-2 rounded-xl outline-none h-full min-h-[80px]" style="background:hsl(35 50% 97%);border-color:hsl(35 40% 86%)" placeholder="https://image-link.com/photo.jpg" />
+                </div>
+              </div>
+              <div id="imagePreviewArea" class="mt-3 hidden">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-bold uppercase tracking-widest" style="color:hsl(var(--teal))">✅ Image Ready</span>
+                  <button type="button" id="openCropBtn" class="text-xs px-4 py-1.5 rounded-full font-semibold btn-glow py-1.5">✂️ Crop Image</button>
+                </div>
+                <img id="imageThumb" src="" alt="preview" class="w-full max-h-40 object-cover rounded-xl border-2" style="border-color:hsl(var(--gold)/.3)" />
+              </div>
+            </div>
+            <div>
+              <label class="text-xs font-bold uppercase tracking-widest block mb-1.5" style="color:hsl(340 40% 15%/.65)">Theme / Style</label>
+              <input id="pTheme" class="w-full px-4 py-2.5 border-2 rounded-xl outline-none" style="background:hsl(35 50% 97%);border-color:hsl(35 40% 86%)" placeholder="Royal Floral · Dec 2025" />
+            </div>
+            <div>
+              <label class="text-xs font-bold uppercase tracking-widest block mb-1.5" style="color:hsl(340 40% 15%/.65)">Description</label>
+              <input id="pDesc" class="w-full px-4 py-2.5 border-2 rounded-xl outline-none" style="background:hsl(35 50% 97%);border-color:hsl(35 40% 86%)" placeholder="Short description..." />
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <button id="cancelProject" class="px-5 py-2.5 rounded-full border font-semibold text-sm" style="border-color:hsl(35 40% 86%);color:hsl(340 40% 15%/.65)">Cancel</button>
+            <button id="saveProject" class="btn-glow text-sm py-2.5 px-5">💾 Save Project</button>
+          </div>
+        </div>
+        <div id="adminProjectsList" class="grid md:grid-cols-2 gap-4"></div>
+        <div id="adminProjectsEmpty" class="text-center py-16" style="color:hsl(340 40% 15%/.4)">
+          <div class="text-5xl mb-3">📸</div>
+          <p class="font-display text-xl">No projects yet</p>
+          <p class="text-sm mt-1">Add your first wedding website project above</p>
+        </div>
+      </div>
+
+      <!-- ENQUIRIES TAB -->
+      <div class="admin-section" id="tab-enquiries">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-2xl">Contact Enquiries</h3>
+          <span id="enquiryCount" class="px-3 py-1 rounded-full text-xs font-bold" style="background:hsl(var(--gold)/.2);color:hsl(var(--primary))">0 enquiries</span>
+        </div>
+        <div id="enquiriesList" class="space-y-4"></div>
+        <div id="enquiriesEmpty" class="text-center py-16" style="color:hsl(340 40% 15%/.4)">
+          <div class="text-5xl mb-3">💬</div>
+          <p class="font-display text-xl">No enquiries yet</p>
+          <p class="text-sm mt-1">Customer contact form submissions will appear here</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CROP MODAL -->
+<div id="cropOverlay" class="crop-overlay">
+  <div class="bg-white rounded-3xl w-full max-w-2xl mx-4 border-2 overflow-hidden" style="border-color:hsl(var(--gold)/.4);box-shadow:0 30px 80px rgba(0,0,0,.5)">
+    <div class="flex items-center justify-between p-5 border-b" style="border-color:hsl(var(--gold)/.2);background:hsl(38 60% 97%)">
+      <div>
+        <h3 class="text-xl">✂️ Crop Image</h3>
+        <p class="text-xs" style="color:hsl(340 40% 15%/.45)">Drag to select · drag corners to resize</p>
+      </div>
+      <button id="closeCropBtn" class="w-8 h-8 rounded-full border grid place-items-center text-sm" style="border-color:hsl(35 40% 86%)">✕</button>
+    </div>
+    <div class="flex gap-2 p-4 border-b flex-wrap" style="border-color:hsl(var(--gold)/.15)">
+      <span class="text-xs font-bold uppercase tracking-widest self-center mr-1" style="color:hsl(340 40% 15%/.45)">Ratio:</span>
+      <button class="crop-ratio-btn active" data-ratio="free">Free</button>
+      <button class="crop-ratio-btn" data-ratio="1">1:1</button>
+      <button class="crop-ratio-btn" data-ratio="1.333">4:3</button>
+      <button class="crop-ratio-btn" data-ratio="1.778">16:9</button>
+      <button class="crop-ratio-btn" data-ratio="0.8">4:5</button>
+    </div>
+    <div class="p-4 flex justify-center" style="background:#111;min-height:300px">
+      <div class="crop-container" id="cropContainer" style="position:relative;display:inline-block;user-select:none">
+        <img id="cropImg" src="" alt="crop" style="display:block;max-width:100%;max-height:55vh;pointer-events:none" />
+        <div id="cropSelection" class="crop-selection" style="display:none">
+          <div class="crop-handle tl" data-handle="tl"></div>
+          <div class="crop-handle tr" data-handle="tr"></div>
+          <div class="crop-handle bl" data-handle="bl"></div>
+          <div class="crop-handle br" data-handle="br"></div>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center justify-between p-5 border-t gap-3" style="border-color:hsl(var(--gold)/.2);background:hsl(38 60% 97%)">
+      <div id="cropDimensions" class="text-xs" style="color:hsl(340 40% 15%/.4)">Select an area to crop</div>
+      <div class="flex gap-3">
+        <button id="cropResetBtn" class="btn-outline text-sm py-2 px-4">Reset</button>
+        <button id="applyCropBtn" class="btn-glow text-sm py-2 px-5">✅ Apply Crop</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+<canvas id="cropCanvas" style="display:none"></canvas>
+
+<script>
+// ===================================================
+//  STORAGE
+// ===================================================
+const DB = {
+  get(k,d=[]) { try{return JSON.parse(localStorage.getItem(k))||d}catch{return d} },
+  set(k,v) { try{localStorage.setItem(k,JSON.stringify(v))}catch(e){} },
+  push(k,v,d=[]) { const a=DB.get(k,d);a.push(v);DB.set(k,a);return a; }
+};
+
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// ===================================================
+//  LOADER
+// ===================================================
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('pageLoader').classList.add('hidden');
+    document.body.style.cursor = '';
+  }, 2600);
+});
+
+// ===================================================
+//  CURTAIN
+// ===================================================
+setTimeout(() => {
+  const c = document.getElementById('curtainIntro');
+  if(c){ c.style.transition = 'opacity .5s'; c.style.opacity = '0'; setTimeout(()=>c.remove(),600); }
+}, 4600);
+
+// ===================================================
+//  CUSTOM CURSOR
+// ===================================================
+let mx = 0, my = 0, rx = 0, ry = 0;
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  dot.style.left = mx + 'px';
+  dot.style.top = my + 'px';
+});
+
+(function animateCursor(){
+  rx += (mx - rx) * 0.14;
+  ry += (my - ry) * 0.14;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animateCursor);
+})();
+
+document.addEventListener('mousedown', () => document.body.classList.add('cursor-click'));
+document.addEventListener('mouseup', () => document.body.classList.remove('cursor-click'));
+
+document.querySelectorAll('a, button, [data-page], .feature-card, .pricing-card, .testimonial-card').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+});
+
+// ===================================================
+//  SCROLL PROGRESS
+// ===================================================
+window.addEventListener('scroll', () => {
+  const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  document.getElementById('scrollProgress').style.width = pct + '%';
+  const nav = document.getElementById('navbar');
+  nav.classList.toggle('scrolled', window.scrollY > 30);
+}, { passive: true });
+
+// ===================================================
+//  PARALLAX
+// ===================================================
+window.addEventListener('scroll', () => {
+  const sy = window.scrollY;
+  const band = document.getElementById('parallaxBand');
+  if(band) band.style.transform = `translateY(${sy * 0.25}px)`;
+  // Hero blobs parallax
+  document.querySelectorAll('.hero-blob').forEach((b, i) => {
+    b.style.transform = `translateY(${sy * (0.08 + i * 0.04)}px)`;
+  });
+}, { passive: true });
+
+// ===================================================
+//  3D HERO CARD TILT
+// ===================================================
+const heroCard = document.getElementById('heroCard3d');
+if(heroCard) {
+  heroCard.addEventListener('mousemove', e => {
+    const r = heroCard.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    heroCard.style.transform = `perspective(900px) rotateY(${x * 14}deg) rotateX(${-y * 10}deg) scale(1.02)`;
+  });
+  heroCard.addEventListener('mouseleave', () => {
+    heroCard.style.transition = 'transform .6s cubic-bezier(.34,1.56,.64,1)';
+    heroCard.style.transform = '';
+    setTimeout(() => heroCard.style.transition = '', 600);
+  });
+}
+
+// ===================================================
+//  MAGNETIC BUTTONS
+// ===================================================
+document.querySelectorAll('.magnetic').forEach(btn => {
+  btn.addEventListener('mousemove', e => {
+    const r = btn.getBoundingClientRect();
+    const x = (e.clientX - r.left - r.width/2) * 0.3;
+    const y = (e.clientY - r.top - r.height/2) * 0.3;
+    btn.style.transform = `translate(${x}px,${y}px)`;
+  });
+  btn.addEventListener('mouseleave', () => {
+    btn.style.transition = 'transform .5s cubic-bezier(.34,1.56,.64,1)';
+    btn.style.transform = '';
+    setTimeout(() => btn.style.transition = '', 500);
+  });
+});
+
+// ===================================================
+//  SCROLL REVEAL (IntersectionObserver)
+// ===================================================
+function initReveal() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+    el.classList.remove('visible');
+    obs.observe(el);
+  });
+}
+
+// ===================================================
+//  CONFETTI SPAWNER
+// ===================================================
+function spawnConfetti(hostId, count = 20) {
+  const host = document.getElementById(hostId);
+  if(!host) return;
+  const colors = ['hsl(348 75% 50%)','hsl(42 88% 55%)','hsl(335 80% 62%)','hsl(178 60% 45%)','hsl(290 50% 55%)'];
+  for(let i = 0; i < count; i++) {
+    const s = document.createElement('span');
+    s.className = 'confetti';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.background = colors[i % colors.length];
+    s.style.animationDelay = (Math.random() * 5) + 's';
+    s.style.animationDuration = (3.5 + Math.random() * 3) + 's';
+    s.style.transform = `rotate(${Math.random()*360}deg)`;
+    host.appendChild(s);
+  }
+}
+
+// ===================================================
+//  DATA POPULATION
+// ===================================================
+const whyUsData = [
+  {icon:'✨',c:'#fef3c7',title:'Stunning Animations',desc:'Curtain reveals, scroll effects, parallax — every page tells your story beautifully.'},
+  {icon:'🎵',c:'#fce7f3',title:'Background Music',desc:'Add your favourite romantic song that plays as guests browse your invite.'},
+  {icon:'📸',c:'#d1fae5',title:'Photo Gallery',desc:'Showcase your pre-wedding shoot with stunning lightbox galleries.'},
+  {icon:'👥',c:'#ede9fe',title:'RSVP Forms',desc:'Collect guest confirmations digitally — no more chasing replies on WhatsApp.'},
+  {icon:'📍',c:'#fce7f3',title:'Venue Maps',desc:'Interactive Google Maps so guests find every event with ease.'},
+  {icon:'📅',c:'#fef3c7',title:'Event Schedule',desc:'Mehendi, Sangeet, Haldi, Wedding — animated timeline of every function.'},
+];
+document.getElementById('whyUsGrid').innerHTML = whyUsData.map((f,i) => `
+  <div class="feature-card reveal" data-delay="${i+1}">
+    <div class="icon-wrap" style="background:${f.c}">${f.icon}</div>
+    <h3 class="text-2xl mb-2">${f.title}</h3>
+    <p class="text-sm leading-relaxed" style="color:hsl(340 40% 15%/.65)">${f.desc}</p>
+  </div>`).join('');
+
+const processData = [
+  {n:'01',t:'Share Your Story',d:'Tell us about your love, dates, events & vibe.'},
+  {n:'02',t:'We Design',d:'Custom theme, colours, fonts crafted for you.'},
+  {n:'03',t:'You Approve',d:'Review the demo, request any changes.'},
+  {n:'04',t:'Go Live!',d:'Share your beautiful invite link with everyone!'},
+];
+document.getElementById('processGrid').innerHTML = processData.map((s,i) => `
+  <div class="process-step reveal" data-delay="${i+1}">
+    <div class="step-num">${s.n}</div>
+    <h4 class="text-xl mt-5 mb-2">${s.t}</h4>
+    <p class="text-sm" style="color:hsl(340 40% 15%/.65)">${s.d}</p>
+  </div>`).join('');
+
+const testsData = [
+  {name:'Aarav & Priya',text:'Our guests were stunned! The animations, the music, the gallery — everything was magical. Best decision ever.',initials:'AP'},
+  {name:'Rohan & Sneha',text:'TECH UR WED made our wedding invite the talk of the town. The team understood our vision perfectly.',initials:'RS'},
+  {name:'Karan & Meera',text:'Affordable, fast, and so so beautiful. The curtain opening animation gave me chills 💕',initials:'KM'},
+];
+document.getElementById('testimonialsGrid').innerHTML = testsData.map((t,i) => `
+  <div class="testimonial-card reveal" data-delay="${i+1}">
+    <div class="text-xl mb-3" style="color:hsl(var(--gold))">★★★★★</div>
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;line-height:1.7;color:hsl(340 40% 15%/.8);margin-bottom:1.25rem">"${t.text}"</p>
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 rounded-full grid place-items-center text-white font-bold text-sm" style="background:linear-gradient(135deg,hsl(348 75% 42%),hsl(290 50% 45%))">${t.initials}</div>
+      <div>
+        <p class="font-display font-semibold">${t.name}</p>
+        <p class="text-xs" style="color:hsl(340 40% 15%/.45)">Happy Couple</p>
+      </div>
+    </div>
+    <span class="absolute top-4 right-4" style="color:hsl(var(--pink));font-size:1.2rem">💖</span>
+  </div>`).join('');
+
+const packagesData = [
+  {name:'Classic',icon:'💖',price:'₹2,999',c:'pink',desc:'Perfect intimate invite for close family',features:['5 animated sections','RSVP form','Photo gallery (10 photos)','Google Maps','WhatsApp share','Mobile responsive','1 design revision'],popular:false},
+  {name:'Royal',icon:'👑',price:'₹5,999',c:'gold',desc:'Most loved — full features for grand weddings',features:['10+ animated sections','RSVP with meal preferences','Unlimited photo gallery','Background music','Event timeline','Live countdown timer','Custom domain (1 year)','3 design revisions','Priority support'],popular:true},
+  {name:'Luxe',icon:'⭐',price:'₹9,999',c:'plum',desc:'Ultra-premium custom-coded experience',features:['Everything in Royal','Fully custom theme & art','Pre-wedding video integration','Multi-language support','Guest login dashboard','Live photo upload by guests','Hosting + domain (2 years)','Unlimited revisions','Dedicated designer'],popular:false},
+];
+document.getElementById('packagesGrid').innerHTML = packagesData.map((p,i) => `
+  <div class="pricing-card reveal-scale ${p.popular?'popular':''}" data-delay="${i+1}">
+    ${p.popular ? `<div class="absolute -top-4 left-1/2 -translate-x-1/2 px-5 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase" style="background:linear-gradient(135deg,hsl(348 75% 42%),hsl(290 50% 45%));color:hsl(var(--cream));box-shadow:0 4px 20px hsl(335 80% 50%/.4)">⭐ Most Popular</div>` : ''}
+    <div class="w-16 h-16 rounded-2xl grid place-items-center mb-5 text-3xl" style="background:hsl(var(--${p.c})/.15)">${p.icon}</div>
+    <h3 class="text-3xl mb-1">${p.name}</h3>
+    <p class="text-sm mb-5" style="color:hsl(340 40% 15%/.55)">${p.desc}</p>
+    <div class="mb-6 pb-6 border-b" style="border-color:hsl(35 40% 88%)">
+      <span class="font-display text-5xl gradient-text">${p.price}</span>
+      <p class="text-xs mt-1" style="color:hsl(340 40% 15%/.45)">one-time · lifetime invite</p>
+    </div>
+    <ul class="space-y-3 mb-8">${p.features.map(f=>`<li class="flex items-start gap-3 text-sm"><span class="w-5 h-5 rounded-full grid place-items-center shrink-0 mt-0.5 text-xs font-bold" style="background:hsl(var(--${p.c})/.15);color:hsl(var(--${p.c}))">✓</span><span style="color:hsl(340 40% 15%/.75)">${f}</span></li>`).join('')}</ul>
+    <a href="#" data-page="contact" class="${p.popular?'btn-glow':'btn-outline'} flex justify-center w-full py-3 text-sm">Choose ${p.name} →</a>
+  </div>`).join('');
+
+const valuesData = [
+  {icon:'💖',c:'pink',t:'Made With Love',d:'Every line of code & pixel is crafted with genuine care for your story.'},
+  {icon:'🎨',c:'gold',t:'Stunning Design',d:'We never settle for ordinary — your invite will turn heads, guaranteed.'},
+  {icon:'🚀',c:'teal',t:'Lightning Fast',d:'From idea to live link in under a week, without compromising quality.'},
+  {icon:'😊',c:'plum',t:'Joy First',d:'Happy clients, happy guests. We optimize for smiles, not metrics.'},
+];
+document.getElementById('valuesGrid').innerHTML = valuesData.map((v,i) => `
+  <div class="feature-card reveal" data-delay="${i+1}">
+    <div class="icon-wrap" style="background:hsl(var(--${v.c})/.15)">${v.icon}</div>
+    <h3 class="text-2xl mb-2">${v.t}</h3>
+    <p class="text-sm leading-relaxed" style="color:hsl(340 40% 15%/.65)">${v.d}</p>
+  </div>`).join('');
+
+const statsData = [
+  {n:50,suffix:'+',l:'Happy Couples',icon:'💖'},
+  {n:100,suffix:'%',l:'Custom Designs',icon:'🎨'},
+  {n:5,suffix:'★',l:'Average Rating',icon:'🏆'},
+  {n:24,suffix:'/7',l:'Support',icon:'👥'},
+];
+document.getElementById('statsGrid').innerHTML = statsData.map((s,i) => `
+  <div class="stat-item reveal" data-delay="${i+1}">
+    <div class="text-3xl mb-3" style="color:hsl(var(--gold))">${s.icon}</div>
+    <p class="font-display text-5xl md:text-6xl gradient-text-gold mb-1 count-up" data-target="${s.n}" data-suffix="${s.suffix}">0${s.suffix}</p>
+    <p class="text-sm uppercase tracking-widest font-semibold" style="color:hsl(var(--cream)/.7)">${s.l}</p>
+  </div>`).join('');
+
+// ===================================================
+//  COUNTER ANIMATION
+// ===================================================
+function animateCounters() {
+  document.querySelectorAll('.count-up[data-target]').forEach(el => {
+    const target = parseInt(el.dataset.target);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1500;
+    const start = performance.now();
+    function update(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target) + suffix;
+      if(progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  });
+}
+
+// Trigger counters when stats section is visible
+const statsObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) { animateCounters(); statsObs.unobserve(e.target); } });
+}, { threshold: 0.4 });
+const statsSection = document.getElementById('statsGrid');
+if(statsSection) statsObs.observe(statsSection);
+
+// ===================================================
+//  GALLERY RENDER
+// ===================================================
+function renderGallery() {
+  const projects = DB.get('tuw_projects', []);
+  const grid = document.getElementById('galleryGrid');
+  const empty = document.getElementById('galleryEmpty');
+  if(!grid) return;
+  if(projects.length === 0) {
+    grid.innerHTML = '';
+    grid.classList.add('hidden');
+    empty.classList.remove('hidden');
+    return;
+  }
+  grid.classList.remove('hidden');
+  empty.classList.add('hidden');
+  grid.innerHTML = projects.map((p, i) => `
+    <div class="gallery-card reveal" data-delay="${(i%3)+1}" style="animation-delay:${i*.1}s">
+      <div class="aspect-[4/3] relative">
+        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover" />
+        <div class="overlay"></div>
+        <div class="card-info">
+          <p style="font-family:'Great Vibes',cursive;font-size:1.6rem;color:hsl(var(--cream))">${p.name}</p>
+          ${p.theme ? `<p class="text-xs mb-3" style="color:hsl(var(--gold))">${p.theme}</p>` : ''}
+          <a href="${p.url}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold" style="background:hsl(var(--gold));color:hsl(var(--primary))">View Site →</a>
+        </div>
+      </div>
+      <div class="p-4 bg-white">
+        <h3 class="text-lg">${p.name}</h3>
+        ${p.desc ? `<p class="text-xs mt-1" style="color:hsl(340 40% 15%/.55)">${p.desc}</p>` : ''}
+        <div class="flex items-center justify-between mt-3">
+          ${p.theme ? `<span class="text-xs px-2 py-1 rounded-full" style="background:hsl(var(--gold)/.15);color:hsl(var(--primary))">${p.theme}</span>` : '<span></span>'}
+          <a href="${p.url}" target="_blank" rel="noopener" class="text-xs font-semibold fancy-link" style="color:hsl(var(--pink))">Visit →</a>
+        </div>
+      </div>
+    </div>`).join('');
+  initReveal();
+}
+
+// ===================================================
+//  ADMIN PROJECTS RENDER
+// ===================================================
+function renderAdminProjects() {
+  const projects = DB.get('tuw_projects', []);
+  const list = document.getElementById('adminProjectsList');
+  const empty = document.getElementById('adminProjectsEmpty');
+  if(projects.length === 0) {
+    list.innerHTML = '';
+    list.classList.add('hidden');
+    empty.classList.remove('hidden');
+    return;
+  }
+  list.classList.remove('hidden');
+  empty.classList.add('hidden');
+  list.innerHTML = projects.map((p, i) => `
+    <div class="bg-white rounded-2xl border overflow-hidden" style="border-color:hsl(35 40% 88%)">
+      <div class="aspect-video relative">
+        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover" onerror="this.style.background='linear-gradient(135deg,hsl(348 75% 42%),hsl(335 80% 62%))'" />
+        <div class="absolute top-2 right-2 flex gap-2">
+          <button onclick="editProject(${i})" class="w-8 h-8 rounded-full grid place-items-center text-xs bg-white" style="color:hsl(var(--primary));box-shadow:0 2px 8px rgba(0,0,0,.15)">✏️</button>
+          <button onclick="deleteProject(${i})" class="w-8 h-8 rounded-full grid place-items-center text-xs bg-white" style="color:hsl(0 70% 50%);box-shadow:0 2px 8px rgba(0,0,0,.15)">🗑️</button>
+        </div>
+      </div>
+      <div class="p-4">
+        <h4 class="font-display text-lg">${p.name}</h4>
+        ${p.theme ? `<p class="text-xs mt-0.5" style="color:hsl(var(--gold))">${p.theme}</p>` : ''}
+        ${p.desc ? `<p class="text-xs mt-1" style="color:hsl(340 40% 15%/.55)">${p.desc}</p>` : ''}
+        <a href="${p.url}" target="_blank" rel="noopener" class="inline-block mt-2 text-xs underline" style="color:hsl(var(--pink))">View Site →</a>
+      </div>
+    </div>`).join('');
+}
+
+window.editProject = function(i) {
+  const p = DB.get('tuw_projects', [])[i];
+  if(!p) return;
+  document.getElementById('projectFormTitle').textContent = 'Edit Project';
+  document.getElementById('editProjectId').value = i;
+  document.getElementById('pName').value = p.name;
+  document.getElementById('pUrl').value = p.url;
+  document.getElementById('pImage').value = p.image.startsWith('data:') ? '' : p.image;
+  document.getElementById('pTheme').value = p.theme || '';
+  document.getElementById('pDesc').value = p.desc || '';
+  document.getElementById('imageThumb').src = p.image;
+  document.getElementById('imagePreviewArea').classList.remove('hidden');
+  cropState.finalImageData = p.image;
+  document.getElementById('projectForm').classList.remove('hidden');
+  document.getElementById('projectForm').scrollIntoView({ behavior: 'smooth' });
+};
+
+window.deleteProject = function(i) {
+  if(!confirm('Delete this project?')) return;
+  const p = DB.get('tuw_projects', []); p.splice(i, 1); DB.set('tuw_projects', p);
+  renderAdminProjects(); renderGallery();
+  showToast('Project deleted!');
+};
+
+// ===================================================
+//  IMAGE CROP STATE
+// ===================================================
+const cropState = {
+  originalSrc: null, finalImageData: null,
+  isDragging: false, isResizing: false, resizeHandle: null,
+  startX: 0, startY: 0, selX: 0, selY: 0, selW: 0, selH: 0,
+  aspectRatio: 'free'
+};
+
+document.getElementById('imageFileInput').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const src = ev.target.result;
+    cropState.finalImageData = src; cropState.originalSrc = src;
+    document.getElementById('imageThumb').src = src;
+    document.getElementById('imagePreviewArea').classList.remove('hidden');
+    document.getElementById('pImage').value = '';
+  };
+  reader.readAsDataURL(file);
+});
+
+document.getElementById('pImage').addEventListener('blur', function() {
+  const url = this.value.trim();
+  if(url) {
+    cropState.finalImageData = url; cropState.originalSrc = url;
+    document.getElementById('imageThumb').src = url;
+    document.getElementById('imagePreviewArea').classList.remove('hidden');
+  }
+});
+
+document.getElementById('openCropBtn').addEventListener('click', () => {
+  const src = cropState.originalSrc || document.getElementById('pImage').value.trim();
+  if(!src) { showToast('No image to crop!'); return; }
+  document.getElementById('cropImg').src = src;
+  document.getElementById('cropImg').onload = resetCropSelection;
+  document.getElementById('cropOverlay').classList.add('open');
+  document.getElementById('cropSelection').style.display = 'none';
+});
+
+document.getElementById('closeCropBtn').addEventListener('click', () => document.getElementById('cropOverlay').classList.remove('open'));
+document.getElementById('cropOverlay').addEventListener('click', e => { if(e.target === document.getElementById('cropOverlay')) document.getElementById('cropOverlay').classList.remove('open'); });
+
+document.querySelectorAll('.crop-ratio-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.crop-ratio-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    cropState.aspectRatio = this.dataset.ratio;
+  });
+});
+
+function resetCropSelection() {
+  cropState.selX = cropState.selY = cropState.selW = cropState.selH = 0;
+  document.getElementById('cropSelection').style.display = 'none';
+  document.getElementById('cropDimensions').textContent = 'Select an area to crop';
+}
+document.getElementById('cropResetBtn').addEventListener('click', resetCropSelection);
+
+const cropContainer = document.getElementById('cropContainer');
+const cropSelection = document.getElementById('cropSelection');
+
+function getCropCoords(e) {
+  const r = cropContainer.getBoundingClientRect();
+  const cx = e.touches ? e.touches[0].clientX : e.clientX;
+  const cy = e.touches ? e.touches[0].clientY : e.clientY;
+  return { x: Math.max(0, Math.min(cx - r.left, cropContainer.offsetWidth)), y: Math.max(0, Math.min(cy - r.top, cropContainer.offsetHeight)) };
+}
+
+function applyAspect(w, h) {
+  if(cropState.aspectRatio === 'free') return {w,h};
+  const ratio = parseFloat(cropState.aspectRatio);
+  return Math.abs(w) > Math.abs(h) * ratio ? {w: h * ratio, h} : {w, h: w / ratio};
+}
+
+function updateSelDisplay() {
+  let {selX,selY,selW,selH} = cropState;
+  const x = selW >= 0 ? selX : selX+selW, y = selH >= 0 ? selY : selY+selH;
+  const w = Math.abs(selW), h = Math.abs(selH);
+  cropSelection.style.cssText += `display:block;left:${x}px;top:${y}px;width:${w}px;height:${h}px`;
+  const img = document.getElementById('cropImg');
+  const sx = img.naturalWidth/img.offsetWidth, sy = img.naturalHeight/img.offsetHeight;
+  document.getElementById('cropDimensions').textContent = `${Math.round(w*sx)} × ${Math.round(h*sy)} px`;
+}
+
+cropContainer.addEventListener('mousedown', e => {
+  if(e.target.classList.contains('crop-handle')) return;
+  e.preventDefault();
+  const pos = getCropCoords(e);
+  cropState.isDragging = true;
+  cropState.startX = cropState.selX = pos.x;
+  cropState.startY = cropState.selY = pos.y;
+  cropState.selW = cropState.selH = 0;
+});
+
+document.addEventListener('mousemove', e => {
+  if(cropState.isDragging) {
+    const pos = getCropCoords(e);
+    const adj = applyAspect(pos.x - cropState.startX, pos.y - cropState.startY);
+    cropState.selW = adj.w; cropState.selH = adj.h;
+    updateSelDisplay();
+  } else if(cropState.isResizing) {
+    const pos = getCropCoords(e);
+    const dx = pos.x - cropState.startX, dy = pos.y - cropState.startY;
+    const h = cropState.resizeHandle;
+    let {selX,selY,selW,selH} = cropState;
+    let x = selW<0?selX+selW:selX, y = selH<0?selY+selH:selY, w=Math.abs(selW), ht=Math.abs(selH);
+    if(h==='br'){w=Math.max(10,w+dx);ht=Math.max(10,ht+dy)}
+    else if(h==='bl'){x+=dx;w=Math.max(10,w-dx);ht=Math.max(10,ht+dy)}
+    else if(h==='tr'){y+=dy;w=Math.max(10,w+dx);ht=Math.max(10,ht-dy)}
+    else if(h==='tl'){x+=dx;y+=dy;w=Math.max(10,w-dx);ht=Math.max(10,ht-dy)}
+    cropState.startX=pos.x;cropState.startY=pos.y;
+    cropState.selX=x;cropState.selY=y;cropState.selW=w;cropState.selH=ht;
+    updateSelDisplay();
+  }
+});
+
+document.addEventListener('mouseup', () => {
+  cropState.isDragging = false; cropState.isResizing = false;
+  if(cropState.selW<0){cropState.selX+=cropState.selW;cropState.selW=-cropState.selW}
+  if(cropState.selH<0){cropState.selY+=cropState.selH;cropState.selH=-cropState.selH}
+});
+
+cropSelection.querySelectorAll('.crop-handle').forEach(h => {
+  h.addEventListener('mousedown', e => {
+    e.stopPropagation(); e.preventDefault();
+    cropState.isResizing = true; cropState.resizeHandle = e.target.dataset.handle;
+    const pos = getCropCoords(e); cropState.startX = pos.x; cropState.startY = pos.y;
+  });
+});
+
+document.getElementById('applyCropBtn').addEventListener('click', () => {
+  const {selX,selY,selW,selH} = cropState;
+  if(selW < 5 || selH < 5) { showToast('Please select an area first!'); return; }
+  const img = document.getElementById('cropImg');
+  const sx = img.naturalWidth/img.offsetWidth, sy = img.naturalHeight/img.offsetHeight;
+  const canvas = document.getElementById('cropCanvas');
+  canvas.width = Math.round(selW*sx); canvas.height = Math.round(selH*sy);
+  const ctx = canvas.getContext('2d');
+  const el = new Image(); el.crossOrigin = 'anonymous';
+  el.onload = () => {
+    ctx.drawImage(el, Math.round(selX*sx), Math.round(selY*sy), canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
+    const data = canvas.toDataURL('image/jpeg', 0.92);
+    cropState.finalImageData = data;
+    document.getElementById('imageThumb').src = data;
+    document.getElementById('imagePreviewArea').classList.remove('hidden');
+    document.getElementById('cropOverlay').classList.remove('open');
+    showToast('✂️ Cropped successfully!');
+  };
+  el.src = cropState.originalSrc;
+});
+
+// ===================================================
+//  PROJECT FORM
+// ===================================================
+function resetProjectForm() {
+  document.getElementById('editProjectId').value = '';
+  ['pName','pUrl','pImage','pTheme','pDesc'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('imagePreviewArea').classList.add('hidden');
+  document.getElementById('imageFileInput').value = '';
+  cropState.finalImageData = null; cropState.originalSrc = null;
+}
+
+document.getElementById('addProjectBtn').addEventListener('click', () => {
+  document.getElementById('projectFormTitle').textContent = 'Add New Project';
+  resetProjectForm();
+  document.getElementById('projectForm').classList.remove('hidden');
+  document.getElementById('projectForm').scrollIntoView({ behavior: 'smooth' });
+});
+
+document.getElementById('cancelProject').addEventListener('click', () => {
+  document.getElementById('projectForm').classList.add('hidden');
+  resetProjectForm();
+});
+
+document.getElementById('saveProject').addEventListener('click', () => {
+  const name = document.getElementById('pName').value.trim();
+  const url = document.getElementById('pUrl').value.trim();
+  const imageData = cropState.finalImageData || document.getElementById('pImage').value.trim();
+  if(!name || !url || !imageData) { showToast('Please fill Name, URL and add an image!'); return; }
+  const proj = { name, url, image: imageData, theme: document.getElementById('pTheme').value.trim(), desc: document.getElementById('pDesc').value.trim(), addedAt: new Date().toISOString() };
+  const projects = DB.get('tuw_projects', []);
+  const editId = document.getElementById('editProjectId').value;
+  if(editId !== '') projects[parseInt(editId)] = proj; else projects.push(proj);
+  DB.set('tuw_projects', projects);
+  renderAdminProjects(); renderGallery();
+  document.getElementById('projectForm').classList.add('hidden');
+  resetProjectForm();
+  showToast(editId !== '' ? '✅ Project updated!' : '🎉 Project added!');
+});
+
+// ===================================================
+//  ENQUIRIES RENDER
+// ===================================================
+function renderEnquiries() {
+  const enqs = DB.get('tuw_enquiries', []);
+  const list = document.getElementById('enquiriesList');
+  const empty = document.getElementById('enquiriesEmpty');
+  const count = document.getElementById('enquiryCount');
+  count.textContent = enqs.length + ' enquir' + (enqs.length === 1 ? 'y' : 'ies');
+  if(enqs.length === 0) { list.innerHTML = ''; empty.classList.remove('hidden'); return; }
+  empty.classList.add('hidden');
+  list.innerHTML = [...enqs].reverse().map((e, ri) => {
+    const i = enqs.length - 1 - ri;
+    return `<div class="bg-white rounded-2xl border p-5" style="border-color:hsl(35 40% 88%)">
+      <div class="flex items-start justify-between gap-4 mb-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full grid place-items-center text-white font-bold text-sm shrink-0" style="background:linear-gradient(135deg,hsl(348 75% 42%),hsl(290 50% 45%))">${e.name ? e.name.charAt(0).toUpperCase() : '?'}</div>
+          <div>
+            <p class="font-semibold" style="color:hsl(var(--primary))">${e.name || 'Anonymous'}</p>
+            <p class="text-xs" style="color:hsl(340 40% 15%/.45)">${e.submittedAt ? new Date(e.submittedAt).toLocaleString() : ''}</p>
+          </div>
+        </div>
+        <button onclick="deleteEnquiry(${i})" class="text-xs px-3 py-1 rounded-full border hover:bg-red-50 transition-all" style="border-color:hsl(35 40% 86%);color:hsl(0 70% 50%)">Delete</button>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-3 text-xs mb-3">
+        <div class="p-2 rounded-lg" style="background:hsl(38 55% 92%)"><span class="font-bold block" style="color:hsl(340 40% 15%/.45)">EMAIL</span><span style="color:hsl(var(--primary))">${e.email || '—'}</span></div>
+        <div class="p-2 rounded-lg" style="background:hsl(38 55% 92%)"><span class="font-bold block" style="color:hsl(340 40% 15%/.45)">PHONE</span><span style="color:hsl(var(--primary))">${e.Number || '—'}</span></div>
+        <div class="p-2 rounded-lg" style="background:hsl(38 55% 92%)"><span class="font-bold block" style="color:hsl(340 40% 15%/.45)">WEDDING DATE</span><span style="color:hsl(var(--primary))">${e.date || 'TBD'}</span></div>
+        <div class="p-2 rounded-lg sm:col-span-3" style="background:hsl(38 55% 92%)"><span class="font-bold block" style="color:hsl(340 40% 15%/.45)">PACKAGE</span><span style="color:hsl(var(--primary))">${e.pkg || '—'}</span></div>
+      </div>
+      <div class="p-3 rounded-xl text-sm" style="background:hsl(38 55% 92%);color:hsl(340 40% 15%/.8)"><strong>Message:</strong> ${e.message || '—'}</div>
+      <div class="flex gap-2 mt-3">
+        ${e.email ? `<a href="mailto:${e.email}" class="inline-flex items-center gap-1 text-xs px-3 py-1.5 rounded-full font-semibold" style="background:hsl(var(--pink)/.15);color:hsl(var(--pink))">📧 Reply</a>` : ''}
+        <a href="https://wa.me/916356231667" target="_blank" class="inline-flex items-center gap-1 text-xs px-3 py-1.5 rounded-full font-semibold" style="background:hsl(var(--teal)/.15);color:hsl(var(--teal))">💬 WhatsApp</a>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+window.deleteEnquiry = function(i) {
+  if(!confirm('Delete this enquiry?')) return;
+  const enqs = DB.get('tuw_enquiries', []); enqs.splice(i, 1); DB.set('tuw_enquiries', enqs);
+  renderEnquiries(); showToast('Enquiry deleted!');
+};
+
+// ===================================================
+//  ADMIN TABS
+// ===================================================
+document.querySelectorAll('.admin-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+    if(tab.dataset.tab === 'enquiries') renderEnquiries();
+    if(tab.dataset.tab === 'portfolio') renderAdminProjects();
+  });
+});
+
+// ===================================================
+//  ADMIN LOGIN
+// ===================================================
+const ADMIN_PASS = 'Dhruvraj@305515';
+
+document.getElementById('adminBtn').addEventListener('click', () => {
+  document.getElementById('adminLoginOverlay').classList.add('open');
+  document.getElementById('adminPass').value = '';
+  document.getElementById('loginError').classList.add('hidden');
+});
+
+document.getElementById('loginCancel').addEventListener('click', () => document.getElementById('adminLoginOverlay').classList.remove('open'));
+
+function tryLogin() {
+  const pass = document.getElementById('adminPass').value;
+  if(pass === ADMIN_PASS) {
+    document.getElementById('adminLoginOverlay').classList.remove('open');
+    document.getElementById('adminOverlay').classList.add('open');
+    renderAdminProjects(); renderEnquiries();
+  } else {
+    document.getElementById('loginError').classList.remove('hidden');
+    const input = document.getElementById('adminPass');
+    input.style.borderColor = 'hsl(0 70% 50%)';
+    input.style.animation = 'shake .4s ease';
+    setTimeout(() => { input.style.borderColor = ''; input.style.animation = ''; }, 1500);
+  }
+}
+
+document.getElementById('loginSubmit').addEventListener('click', tryLogin);
+document.getElementById('adminPass').addEventListener('keydown', e => { if(e.key === 'Enter') tryLogin(); });
+document.getElementById('adminClose').addEventListener('click', () => document.getElementById('adminOverlay').classList.remove('open'));
+document.getElementById('adminLoginOverlay').addEventListener('click', e => { if(e.target === document.getElementById('adminLoginOverlay')) document.getElementById('adminLoginOverlay').classList.remove('open'); });
+document.getElementById('adminOverlay').addEventListener('click', e => { if(e.target === document.getElementById('adminOverlay')) document.getElementById('adminOverlay').classList.remove('open'); });
+
+// ===================================================
+//  PAGE ROUTING (FIXED)
+// ===================================================
+function showPage(pageId) {
+  // Hide all pages
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  // Show target
+  const target = document.getElementById('page-' + pageId);
+  if(target) target.classList.add('active');
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'instant' });
+  // Update nav links
+  document.querySelectorAll('.nav-link').forEach(l => {
+    const isActive = l.getAttribute('data-page') === pageId;
+    l.classList.toggle('active', isActive);
+  });
+  document.querySelectorAll('.mob-link').forEach(l => {
+    l.classList.toggle('active', l.getAttribute('data-page') === pageId);
+  });
+  // Close mobile menu
+  document.getElementById('mobileMenu').classList.remove('open');
+  // Page-specific logic
+  if(pageId === 'gallery') { renderGallery(); }
+  if(pageId === 'contact') {
+    document.getElementById('contactForm').style.display = 'block';
+    document.getElementById('formSuccess').classList.remove('show');
+  }
+  if(pageId === 'services') { spawnConfetti('confettiServices', 18); }
+  if(pageId === 'about') { spawnConfetti('confettiAbout', 18); }
+  if(pageId === 'contact') { spawnConfetti('confettiContact', 15); }
+  // Re-init reveals after page change
+  requestAnimationFrame(() => { initReveal(); });
+}
+
+// Delegate ALL data-page clicks
+document.addEventListener('click', e => {
+  const anchor = e.target.closest('[data-page]');
+  if(anchor) {
+    e.preventDefault();
+    const pageId = anchor.getAttribute('data-page');
+    if(pageId) showPage(pageId);
+  }
+});
+
+// ===================================================
+//  MOBILE MENU TOGGLE
+// ===================================================
+document.getElementById('menuBtn').addEventListener('click', () => {
+  document.getElementById('mobileMenu').classList.toggle('open');
+});
+
+// ===================================================
+//  CONTACT FORM
+// ===================================================
+document.getElementById('contactForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const entry = {
+    name: fd.get('name'), email: fd.get('email'),
+    Number: fd.get('Number'), date: fd.get('date') || '',
+    pkg: fd.get('pkg') || '', message: fd.get('message'),
+    submittedAt: new Date().toISOString()
+  };
+  DB.push('tuw_enquiries', entry, []);
+  document.getElementById('contactForm').style.display = 'none';
+  document.getElementById('formSuccess').classList.add('show');
+  showToast('💌 Message received!');
+});
+
+document.getElementById('sendAnotherBtn').addEventListener('click', () => {
+  document.getElementById('contactForm').reset();
+  document.getElementById('contactForm').style.display = 'block';
+  document.getElementById('formSuccess').classList.remove('show');
+});
+
+// ===================================================
+//  TOAST
+// ===================================================
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// ===================================================
+//  SHAKE KEYFRAME
+// ===================================================
+const shakeStyle = document.createElement('style');
+shakeStyle.textContent = '@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}';
+document.head.appendChild(shakeStyle);
+
+// ===================================================
+//  INIT
+// ===================================================
+spawnConfetti('confettiHero', 25);
+spawnConfetti('confettiCTA', 20);
+showPage('home');
+</script>
+</body>
 </html>
