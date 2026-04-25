@@ -4,6 +4,7 @@ import { AnimatedHeading } from "./components/site/AnimatedHeading";
 import { Confetti } from "./components/site/Confetti";
 import { useToast } from "./hooks/use-toast";
 import { Mail, MessageCircle, MapPin, Heart, Send, Sparkles } from "lucide-react";
+import { supabase } from "../integrations/supabase/client";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -14,16 +15,37 @@ const Contact = () => {
     setSubmitting(true);
     const fd = new FormData(e.currentTarget);
     const name = fd.get("name");
+    const email = fd.get("email");
+    const phone = fd.get("Number");
+    const weddingDate = fd.get("date");
+    const packageInterest = fd.get("pkg");
     const message = fd.get("message");
 
-    // Open WhatsApp prefilled — guaranteed delivery without backend email
-    const text = `Hi TECH UR WED!%0A%0AName: ${name}%0AEmail: ${fd.get("email")}%0AWedding Date: ${fd.get("date") || "TBD"}%0APackage: ${fd.get("pkg") || "Not sure"}%0A%0AMessage: ${message}`;
-    setTimeout(() => {
-      toast({ title: "Opening WhatsApp...", description: "We'll reply within minutes! 💕" });
+    // Save to Supabase
+    const { error } = await supabase.from('enquiries').insert([
+      {
+        name: name,
+        email: email,
+        phone: phone,
+        wedding_date: weddingDate || null,
+        package: packageInterest,
+        message: message,
+        created_at: new Date().toISOString()
+      }
+    ]);
+
+    if (error) {
+      console.error('Supabase error:', error);
+      toast({ title: "Error", description: "Failed to save. Please try again.", variant: "destructive" });
+    } else {
+      // Open WhatsApp prefilled after successful save
+      const text = `Hi TECH UR WED!%0A%0AName: ${name}%0AEmail: ${email}%0AWedding Date: ${weddingDate || "TBD"}%0APackage: ${packageInterest || "Not sure"}%0A%0AMessage: ${message}`;
       window.open(`https://wa.me/916356231667?text=${text}`, "_blank");
       (e.target as HTMLFormElement).reset();
-      setSubmitting(false);
-    }, 600);
+      toast({ title: "Message Sent!", description: "We'll reply within minutes! 💕" });
+    }
+    
+    setSubmitting(false);
   };
 
   return (
@@ -90,18 +112,22 @@ const Contact = () => {
             <p className="text-foreground/60 text-sm mb-6">All fields except message are optional — share what you're comfortable with.</p>
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="text-xs font-bold uppercase tracking-widest text-foreground/70">Your Name</label>
+                <label className="text-xs font-bold uppercase tracking-widest text-foreground/70">Your Name *</label>
                 <input name="name" required className="w-full mt-1.5 px-4 py-3 bg-background border-2 border-border rounded-xl focus:border-pink focus:outline-none transition-colors" placeholder="Aarav & Priya" />
               </div>
               <div>
-                <label className="text-xs font-bold uppercase tracking-widest text-foreground/70">Email</label>
+                <label className="text-xs font-bold uppercase tracking-widest text-foreground/70">Email *</label>
                 <input type="email" name="email" required className="w-full mt-1.5 px-4 py-3 bg-background border-2 border-border rounded-xl focus:border-pink focus:outline-none transition-colors" placeholder="you@love.com" />
+              </div>
+              <div>
+                <label className="text-xs font-bold uppercase tracking-widest text-foreground/70">Phone Number</label>
+                <input name="Number" className="w-full mt-1.5 px-4 py-3 bg-background border-2 border-border rounded-xl focus:border-pink focus:outline-none transition-colors" placeholder="+91 00000 00000" />
               </div>
               <div>
                 <label className="text-xs font-bold uppercase tracking-widest text-foreground/70">Wedding Date</label>
                 <input name="date" className="w-full mt-1.5 px-4 py-3 bg-background border-2 border-border rounded-xl focus:border-pink focus:outline-none transition-colors" placeholder="Dec 15, 2026" />
               </div>
-              <div>
+              <div className="md:col-span-2">
                 <label className="text-xs font-bold uppercase tracking-widest text-foreground/70">Package Interest</label>
                 <select name="pkg" className="w-full mt-1.5 px-4 py-3 bg-background border-2 border-border rounded-xl focus:border-pink focus:outline-none transition-colors">
                   <option>Not sure yet</option>
@@ -121,7 +147,7 @@ const Contact = () => {
               disabled={submitting}
               className="mt-6 w-full bg-gradient-festive text-cream py-4 rounded-full font-semibold flex items-center justify-center gap-2 shadow-pink hover:-translate-y-0.5 transition-all disabled:opacity-60"
             >
-              <Send size={18} /> {submitting ? "Sending..." : "Send via WhatsApp"}
+              <Send size={18} /> {submitting ? "Sending..." : "Send Message"}
             </button>
             <p className="text-xs text-foreground/50 text-center mt-3">
               Or email us directly at <a href="mailto:techwed2026@gmail.com" className="text-pink underline">techwed2026@gmail.com</a>
