@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "./components/site/Layout";
 import { LogOut, Plus, Trash2, Edit, Heart, Image as ImageIcon, ExternalLink, X, Upload } from "lucide-react";
+import { supabase } from "../integrations/supabase/client";
 
 const CLOUD_NAME = 'dx3xvheum';
 const UPLOAD_PRESET = 'wedding_uploads';
@@ -42,16 +43,39 @@ const AdminDashboard = () => {
     if (!isLoggedIn) {
       navigate("/admin/login", { replace: true });
     }
-    load();
+    loadFromSupabase();
   }, [navigate]);
 
-  const load = () => {
+  // Load from Supabase instead of localStorage
+  const loadFromSupabase = async () => {
     setLoading(true);
-    const saved = localStorage.getItem("wedding_projects");
-    if (saved) {
-      setSites(JSON.parse(saved));
+    const { data, error } = await supabase
+      .from('portfolio')
+      .select('*')
+      .order('display_order', { ascending: true });
+    
+    if (error) {
+      console.error('Error loading from Supabase:', error);
+      // Fallback to localStorage if Supabase fails
+      const saved = localStorage.getItem("wedding_projects");
+      if (saved) {
+        setSites(JSON.parse(saved));
+      }
+    } else if (data && data.length > 0) {
+      // Convert Supabase data to match WeddingSite interface
+      const formattedSites: WeddingSite[] = data.map((item: any) => ({
+        id: item.id.toString(),
+        couple_names: item.couple_name,
+        wedding_date: item.wedding_date,
+        description: item.description,
+        cover_image_url: item.image_url,
+        site_url: item.website_url,
+        tags: item.tags,
+        display_order: item.display_order || 0,
+      }));
+      setSites(formattedSites);
     } else {
-      // Demo data
+      // Demo data if no data in Supabase
       const demoSites = [
         {
           id: "1",
@@ -75,14 +99,36 @@ const AdminDashboard = () => {
         }
       ];
       setSites(demoSites);
-      localStorage.setItem("wedding_projects", JSON.stringify(demoSites));
     }
     setLoading(false);
   };
 
-  const saveToLocalStorage = (newSites: WeddingSite[]) => {
-    setSites(newSites);
-    localStorage.setItem("wedding_projects", JSON.stringify(newSites));
+  // Save to Supabase
+  const saveToSupabase = async (site: WeddingSite, isEdit: boolean) => {
+    const supabaseData = {
+      couple_name: site.couple_names,
+      wedding_date: site.wedding_date,
+      description: site.description,
+      image_url: site.cover_image_url,
+      website_url: site.site_url,
+      tags: site.tags,
+      display_order: site.display_order,
+    };
+
+    if (isEdit) {
+      const { error } = await supabase
+        .from('portfolio')
+        .update(supabaseData)
+        .eq('id', parseInt(site.id));
+      
+      if (error) throw error;
+    } else {
+      const { error } = await supabase
+        .from('portfolio')
+        .insert([supabaseData]);
+      
+      if (error) throw error;
+    }
   };
 
   const openCloudinaryWidget = () => {
@@ -160,25 +206,31 @@ const AdminDashboard = () => {
       display_order: Number(form.display_order) || 0,
     };
 
-    let newSites: WeddingSite[];
-    if (editing) {
-      newSites = sites.map(s => s.id === editing.id ? newSite : s);
-    } else {
-      newSites = [...sites, newSite];
+    try {
+      await saveToSupabase(newSite, !!editing);
+      alert(editing ? "✅ Project updated!" : "✅ Wedding site added!");
+      setShowForm(false);
+      await loadFromSupabase(); // Reload from Supabase
+    } catch (error) {
+      console.error('Save error:', error);
+      alert("❌ Failed to save. Please try again.");
     }
-    
-    saveToLocalStorage(newSites);
-    alert(editing ? "✅ Project updated!" : "✅ Wedding site added!");
-    setShowForm(false);
-    load();
   };
 
-  const remove = (s: WeddingSite) => {
+  const remove = async (s: WeddingSite) => {
     if (!confirm(`Delete "${s.couple_names}"?`)) return;
-    const newSites = sites.filter(site => site.id !== s.id);
-    saveToLocalStorage(newSites);
-    alert("🗑️ Project deleted!");
-    load();
+    
+    const { error } = await supabase
+      .from('portfolio')
+      .delete()
+      .eq('id', parseInt(s.id));
+    
+    if (error) {
+      alert("❌ Failed to delete: " + error.message);
+    } else {
+      alert("🗑️ Project deleted!");
+      await loadFromSupabase(); // Reload from Supabase
+    }
   };
 
   const logout = () => {
