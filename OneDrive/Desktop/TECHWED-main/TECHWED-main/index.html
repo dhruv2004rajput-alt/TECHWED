@@ -379,6 +379,7 @@ input:focus,select:focus,textarea:focus { outline:none;border-color:hsl(var(--go
 <div id="cursorDot"></div>
 <div id="cursorRing"></div>
 <div id="scrollProgress"></div>
+  
 
 <!-- ===== ENHANCED PAGE LOADER ===== -->
 <div id="pageLoader">
@@ -1442,23 +1443,7 @@ document.getElementById('sendAnotherBtn').addEventListener('click',()=>{
   document.getElementById('contactForm').style.display='block';
   document.getElementById('formSuccess').style.display='none';
 });
-   <!-- ==================== MUSIC PLAYER ==================== -->
-    <div class="music-player paused" id="musicPlayer" onclick="toggleMusic()">
-        <div class="music-icon"><i class="fas fa-music" id="musicIcon"></i></div>
-        <div class="music-waves">
-            <div class="music-wave"></div><div class="music-wave"></div>
-            <div class="music-wave"></div><div class="music-wave"></div>
-        </div>
-        <span class="music-text">Aap Hamari Jaan Ban Gaye</span>
-    </div>
-
-    <!-- Audio Element with Catbox URL -->
-    <audio id="weddingAudio" loop>
-        <source src="https://files.catbox.moe/vq3mnj.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- Fireworks Canvas -->
-    <canvas id="fireworksCanvas"></canvas>
+  
 
 
 // Toast
