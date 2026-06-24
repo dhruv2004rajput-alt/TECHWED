@@ -1,9 +1,0 @@
-echo "@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer base {
-  body {
-    @apply bg-gradient-to-br from-rose-50 to-amber-50;
-  }
-}" > src/index.css
